@@ -50,8 +50,13 @@ When doing game development you've all come across a point when you'd like to do
 The problem is that the number of checks grow very fast (N² for N sprites) when the number of your sprites grow.  
   
 So you somehow have to narrow down your collision-candidates.
-This piece of software does that for you. It does not do collision checking itself. It just tells you if a sprite is near enough to a second one to maybe collide which allows you to do a collision test for those two, or three, or five...
+This piece of software does that for you. It does not do collision checking itself. It just tells you if a sprite is near enough to a second one to maybe collide which allows you to do a collision test for those two, or three, or five...  
+## What It Really Does...
+...is a simple trade-off.  
+You may query it about the sprites around your coordinate or rectangle, but your sprites have to register with it and update their position/AABB on every update.
+But all in all this is a lot faster than a simple brute-force check.  
   
+## Getting Started
 The first thing is: You have to set-up a grid. Usually you'd take your game-coordinate-system's bounds.
 Then you have to tell the grid how many cells it has by setting the number of cells on the X and Y axis.
   
@@ -68,8 +73,9 @@ Then you may add your sprites or other objects to the grid by calling `Add(objec
     By specifying this you tell the grid that you mean the cell that contains these game-coordinates.  
 #### Rectangle  
     This is a basic int-rectangle.  
-    It is not rotated and therefore axis-alinged. So it's an Axis-Aligned-Bounding-Box or AABB.  
-    By specifying this you give the grid a rectangle in the cell-coordinate-system (0-numberOfCellsX, 0-numberOfCellsY).  
+    It is not rotated and therefore axis-aligned. So it's an Axis-Aligned-Bounding-Box or AABB.  
+    By specifying this you give the grid a rectangle in the cell-coordinate-system
+    (0-numberOfCellsX, 0-numberOfCellsY).  
 #### Rect  
     This is a special parameter in our utility-package. It's essentially a Rectangle, but with all float parameters.  
     By specifying this you give the grid a rectangle in the game-coordinate-system.  
@@ -127,9 +133,25 @@ protected override void UnloadContent()
 	Grid.Dispose();
 }
 ```
+  
+## So What's A QuadTree Then?
+Maybe you've heard of such a data-structure that does essentially exactly the same things as this grid with one major difference:  
+  
+The QuadTree divides the space itself.  
+It doesn't need a fixed grid, but divides it unevenly and only when another partition is needed.  
+And that's good and bad at the same time.  
+Unfortunately that costs a lot of time (the updating of this data-structure); At least when compared to the grid.  
+[Here's a very good implementation on GitHub with an excellent explanation what it does.][quadtree]  
+  
+The good news about the QuadTree is that it's exactly what you're looking for if you thought...
+> Oh! Nice thing this grid. But the space I have to check is REALLY BIG and my sprites are very unevenly distributed. Most of the time they are clustered with much space in between those clusters. So my cells become way too big for those clusters to help in any way.
 
+...when reading the explanation of the CollisionGrid.
+  
+  
 [homepage]: http://www.unterrainer.info
 [coding]: http://www.unterrainer.info/Home/Coding
 [github]: https://github.com/UnterrainerInformatik/collisiongrid
+[quadtree]: https://github.com/ChevyRay/QuadTree
 [testrectangle]: https://github.com/UnterrainerInformatik/collisiongrid/blob/master/testrectangle.gif
 [testposition]: https://github.com/UnterrainerInformatik/collisiongrid/blob/master/testposition.gif
