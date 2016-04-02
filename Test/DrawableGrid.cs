@@ -17,6 +17,7 @@ using CollisionGrid;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Utilities;
+using Utilities.Geometry;
 using Utilities.Randomizing;
 
 namespace Test
@@ -29,7 +30,7 @@ namespace Test
 		public Vector2 Position { get; set; }
 		public SpriteBatch SpriteBatch { get; set; }
 
-		private List<Sprite> sprites = new List<Sprite>(); 
+		private readonly List<Sprite> sprites = new List<Sprite>(); 
 		private readonly float width;
 		private readonly float height;
 
@@ -66,7 +67,7 @@ namespace Test
 			base.Update(gameTime);
 			foreach (Sprite s in sprites)
 			{
-				Grid.Move(s, s.Position);
+				Grid.Move(s, s.Position);Grid.rem
 			}
 		}
 
