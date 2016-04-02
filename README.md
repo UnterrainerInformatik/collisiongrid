@@ -58,23 +58,32 @@ Then you have to tell the grid how many cells it has by setting the number of ce
 Then you may add your sprites or other objects to the grid by calling `Add(object, Point/Vector2/Rectangle/Rect)` or `Move(object, Point/Vector2/Rectangle/Rect)`. Move removes the item first if it was present on the grid.  
   
 ### Parameters
-The first parameter is your item. The grid is generic and there are no constraints for that.  
-The second parameter is always one of the following:
-| Parameter | Description | Info |
-|:----------|:------------|:-----|
-|Point|This is an int-point.|By specifying this you tell the grid you mean the cell at exactly this position.|
-|Vector2|This is a float-vector.|By specifying this you tell the grid that you mean the cell that contains these game-coordinates.|
-|Rectangle|This is a basic int-rectangle. It is not rotated and therefore axis-alinged. So it's an Axis-Aligned-Bounding-Box or AABB.|By specifying this you give the grid a rectangle in the cell-coordinate-system (0-numberOfCellsX, 0-numberOfCellsY).|
-|Rect|This is a special parameter in our utility-package. It's essentially a Rectangle, but with all float parameters.|By specifying this you give the grid a rectangle in the game-coordinate-system.|
-
+    The first parameter is your item. The grid is generic and there are no constraints for that.  
+    The second parameter is always one of the following:
+#### Point  
+    This is an int-point.  
+    By specifying this you tell the grid you mean the cell at exactly this position.  
+#### Vector2  
+    This is a float-vector.  
+    By specifying this you tell the grid that you mean the cell that contains these game-coordinates.  
+#### Rectangle  
+    This is a basic int-rectangle.  
+    It is not rotated and therefore axis-alinged. So it's an Axis-Aligned-Bounding-Box or AABB.  
+    By specifying this you give the grid a rectangle in the cell-coordinate-system (0-numberOfCellsX, 0-numberOfCellsY).  
+#### Rect  
+    This is a special parameter in our utility-package. It's essentially a Rectangle, but with all float parameters.  
+    By specifying this you give the grid a rectangle in the game-coordinate-system.  
+  
 All rectangles this grid works with are axis-aligned.  
 
 You're free to remove them at any time by using one of the remove-methods `Remove(Point/Vector2/Rectangle/Rect)`.
   
 The method `Get(Point/Vector2/Rectangle/Rect)` returns an array of your items with all of them that the grid has encountered in the area you've specified when calling `Get`. If it doesn't find any it returns an empty array.
   
+If you add your sprites by their position, then this is what the grid will basically do:  
 ![Position Test][testposition]
   
+If you add your sprites by their AABBs, then this is what the grid will basically do:  
 ![Rectangle Test][testrectangle]
 
 #### Example  
@@ -83,7 +92,9 @@ Set up the collision-grid:
 ```csharp
 public CollisionGrid<Sprite> Grid;
 
-public DrawableGrid(Game game, SpriteBatch spriteBatch, float width, float height, int numberOfCellsX, int numberOfCellsY) : base(game)
+public DrawableGrid(Game game, SpriteBatch spriteBatch,
+                    float width, float height, int numberOfCellsX,
+                    int numberOfCellsY) : base(game)
 {
 	Grid = new CollisionGrid<Sprite>(width, height, numberOfCellsX, numberOfCellsY);
 }
@@ -99,7 +110,23 @@ public override void Update(GameTime gameTime)
 	}
 }
 ```
-The move-method adds an item on the given position (cell that encapsulates the given game-coordinate)
+The move-method adds an item on the given position (cell that encapsulates the given game-coordinate).
+This is the code to achieve the output in the first GIF.  
+
+To achieve the output in the second one, just change the Move-line to the following one:  
+```csharp
+        Grid.Move(s, s.getAABB());
+```
+Whereas of course your sprite has to return the axis-aligned-bounding-box as a Rect.
+  
+Please don't forget to clean up afterwards. There are a few data-structures the grid has to dispose of:  
+```csharp
+protected override void UnloadContent()
+{
+	base.UnloadContent();
+	Grid.Dispose();
+}
+```
 
 [homepage]: http://www.unterrainer.info
 [coding]: http://www.unterrainer.info/Home/Coding
