@@ -23,6 +23,8 @@ namespace Test
 {
 	internal class DrawableGrid : DrawableGameComponent
 	{
+		private const int NUMBER_OF_SPRITES = 50;
+
 		public CollisionGrid<Sprite> Grid;
 		public Vector2 Position { get; set; }
 		public SpriteBatch SpriteBatch { get; set; }
@@ -43,13 +45,13 @@ namespace Test
 		{
 			base.Initialize();
 			IRandomNumberGenerator rand = RandomizerController.Randomizer;
-			for (int i = 0; i < 50; i++)
+			for (int i = 0; i < NUMBER_OF_SPRITES; i++)
 			{
 				Sprite s = new Sprite(Game, SpriteBatch, new Point((int)width, (int)height));
 				s.Trajectory = new Vector2(rand.RandomBetween(-1f, 1f), rand.RandomBetween(-1f, 1f));
 				s.Trajectory.Normalize();
 				s.Position = new Vector2(rand.RandomBetween(0f, 700f), rand.RandomBetween(0f, 700f));
-				s.Velocity = rand.RandomBetween(1f, 6f);
+				s.Velocity = rand.RandomBetween(.1f, 4f);
 				s.Width = rand.RandomBetween(5, 53);
 				s.Height = rand.RandomBetween(5, 53);
 
@@ -64,7 +66,7 @@ namespace Test
 			base.Update(gameTime);
 			foreach (Sprite s in sprites)
 			{
-				Grid.Move(s, s.GetAABB());
+				Grid.Move(s, s.Position);
 			}
 		}
 
@@ -72,7 +74,7 @@ namespace Test
 		{
 			if (Visible)
 			{
-				SpriteBatch.Begin();
+				SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
 				Rectangle r = new Rectangle((int)Position.X, (int)Position.Y, (int)width, (int)height);			
 				SpriteBatch.DrawRectangle(r, Color.Yellow);
 				for (int x = 0; x < Grid.NumberOfCellsX; x++)
@@ -81,9 +83,15 @@ namespace Test
 					{
 						Rectangle cell = new Rectangle((int) (Position.X + x*Grid.CellWidth), (int) (Position.Y + y*Grid.CellHeight),
 							(int) Grid.CellWidth, (int) Grid.CellHeight);
-						if (Grid.Get(new Point(x, y)).Length > 0)
+						int l = Grid.Get(new Point(x, y)).Length;
+						if (l > 0)
 						{
-							SpriteBatch.FillRectangle(cell, Utils.SetTransparencyOnColor(Color.Red, .5f));
+							float f = l/4f;
+							if (f > 1)
+							{
+								f = 1;
+							}
+							SpriteBatch.FillRectangle(cell, Utils.SetTransparencyOnColor(Color.Red, f));
 						}
 						else
 						{
