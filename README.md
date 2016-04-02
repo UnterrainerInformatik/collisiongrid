@@ -62,5 +62,5 @@ The problem is that the number of checks grow very fast (N² for N sprites) when
 [homepage]: http://www.unterrainer.info
 [coding]: http://www.unterrainer.info/Home/Coding
 [github]: https://github.com/UnterrainerInformatik/collisiongrid
-[testrectangle]: https://github.com/UnterrainerInformatik/collisiongrid/testrectangle.gif
-[testposition]: https://github.com/UnterrainerInformatik/collisiongrid/testposition.gif
+[testrectangle]: https://github.com/UnterrainerInformatik/collisiongrid/blob/master/testrectangle.gif
+[testposition]: https://github.com/UnterrainerInformatik/collisiongrid/blob/master/testposition.gif
