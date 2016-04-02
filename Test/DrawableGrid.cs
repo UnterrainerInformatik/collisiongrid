@@ -67,7 +67,7 @@ namespace Test
 			base.Update(gameTime);
 			foreach (Sprite s in sprites)
 			{
-				Grid.Move(s, s.Position);Grid.rem
+				Grid.Move(s, s.Position);
 			}
 		}
 
@@ -102,6 +102,12 @@ namespace Test
 				}
 				SpriteBatch.End();
 			}
+		}
+
+		protected override void UnloadContent()
+		{
+			base.UnloadContent();
+			Grid.Dispose();
 		}
 	}
 }
