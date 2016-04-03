@@ -43,7 +43,13 @@ namespace CollisionGrid
 				result.Clear();
 				foreach (Point p in lop)
 				{
-					result.AddRange(Get(p));
+					foreach (T i in Get(p))
+					{
+						if (!result.Contains(i))
+						{
+							result.Add(i);
+						}
+					}
 				}
 				return result.ToArray();
 			}

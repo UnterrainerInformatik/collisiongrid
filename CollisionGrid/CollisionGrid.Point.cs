@@ -98,7 +98,7 @@ namespace CollisionGrid
 		private void AddToItems(T item, Point cell)
 		{
 			List<Point> pl;
-			Items.TryGetValue(item, out pl);
+			ItemDictionary.TryGetValue(item, out pl);
 			if (pl == null)
 			{
 				if (ListOfPointQueue.Count > 0)
@@ -110,7 +110,7 @@ namespace CollisionGrid
 					pl = new List<Point>();
 				}
 				pl.Add(cell);
-				Items.Add(item, pl);
+				ItemDictionary.Add(item, pl);
 			}
 			else
 			{
@@ -139,14 +139,14 @@ namespace CollisionGrid
 					foreach (T i in l)
 					{
 						List<Point> pl;
-						Items.TryGetValue(i, out pl);
+						ItemDictionary.TryGetValue(i, out pl);
 						if (pl != null)
 						{
 							pl.Remove(c);
 							if (pl.Count == 0)
 							{
 								ListOfPointQueue.Enqueue(pl);
-								Items.Remove(i);
+								ItemDictionary.Remove(i);
 							}
 						}
 					}

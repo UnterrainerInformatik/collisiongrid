@@ -33,7 +33,7 @@ namespace CollisionGrid
 		public int NumberOfCellsY { get; private set; }
 
 		private Dictionary<Point, List<T>> Grid { get; set; }
-		private Dictionary<T, List<Point>> Items { get; set; }
+		private Dictionary<T, List<Point>> ItemDictionary { get; set; }
 		private Queue<List<Point>> ListOfPointQueue { get; set; }
 		private Queue<List<T>> ListOfItemQueue { get; set; }
 
@@ -46,7 +46,7 @@ namespace CollisionGrid
 			CellWidth = Width/NumberOfCellsX;
 			CellHeight = Height/NumberOfCellsY;
 
-			Items = new Dictionary<T, List<Point>>();
+			ItemDictionary = new Dictionary<T, List<Point>>();
 			Grid = new Dictionary<Point, List<T>>();
 
 			ListOfPointQueue = new Queue<List<Point>>();
@@ -58,7 +58,7 @@ namespace CollisionGrid
 			lock (lockObject)
 			{
 				List<Point> pl;
-				Items.TryGetValue(item, out pl);
+				ItemDictionary.TryGetValue(item, out pl);
 				if (pl == null)
 				{
 					return new Point[0];
@@ -76,7 +76,7 @@ namespace CollisionGrid
 			lock (lockObject)
 			{
 				List<Point> pl;
-				Items.TryGetValue(item, out pl);
+				ItemDictionary.TryGetValue(item, out pl);
 				if (pl == null)
 				{
 					return;
@@ -89,7 +89,7 @@ namespace CollisionGrid
 
 				pl.Clear();
 				ListOfPointQueue.Enqueue(pl);
-				Items.Remove(item);
+				ItemDictionary.Remove(item);
 			}
 		}
 
@@ -102,25 +102,31 @@ namespace CollisionGrid
 				tl.Remove(item);
 				if (tl.Count == 0)
 				{
-					if (ListOfItemQueue.Count == 0)
-					{
-						Console.Out.WriteLine("Yippie!");
-					}
 					ListOfItemQueue.Enqueue(tl);
 					Grid.Remove(cell);
 				}
 			}
 		}
 
-		public IEnumerable<T> AllItems()
+		public IEnumerable<T> Items
 		{
-			return Items.Keys;
+			get { return ItemDictionary.Keys; }
 		}
 
-		public IEnumerable<Point> AllOccupiedCells()
+		public IEnumerable<Point> OccupiedCells
 		{
-			return Grid.Keys;
-		} 
+			get { return Grid.Keys; }
+		}
+
+		public int OccupiedCellCount
+		{
+			get { return ItemDictionary.Keys.Count; }
+		}
+
+		public int ItemCount
+		{
+			get { return Grid.Keys.Count; }
+		}
 
 		private Rectangle Rectangle(Rect rect)
 		{
@@ -177,8 +183,8 @@ namespace CollisionGrid
 				ListOfItemQueue = null;
 				Grid.Clear();
 				Grid = null;
-				Items.Clear();
-				Items = null;
+				ItemDictionary.Clear();
+				ItemDictionary = null;
 			}
 		}
 	}
