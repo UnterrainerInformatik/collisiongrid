@@ -67,7 +67,7 @@ namespace Test
 			base.Update(gameTime);
 			foreach (Sprite s in sprites)
 			{
-				Grid.Move(s, s.Position);
+				Grid.Move(s, s.GetAABB());
 			}
 		}
 

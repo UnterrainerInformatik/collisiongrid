@@ -13,6 +13,7 @@
 // ***************************************************************************
 
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 
 namespace CollisionGrid
@@ -23,7 +24,32 @@ namespace CollisionGrid
 		{
 			lock (lockObject)
 			{
-				return grid[Clamp(cell)].ToArray();
+				List<T> contents;
+				Grid.TryGetValue(Clamp(cell), out contents);
+				if (contents == null)
+				{
+					return new T[0];
+				}
+				return contents.ToArray();
+			}
+		}
+
+		/// <summary>
+		/// Gets the first item encountered on the given cell.
+		/// </summary>
+		/// <param name="cell">The cell to search</param>
+		/// <returns>The item or default(T)</returns>
+		public T First(Point cell)
+		{
+			lock (lockObject)
+			{
+				List<T> contents;
+				Grid.TryGetValue(Clamp(cell), out contents);
+				if (contents != null && contents.Count > 0)
+				{
+					return contents[0];
+				}
+				return default(T);
 			}
 		}
 
@@ -45,29 +71,46 @@ namespace CollisionGrid
 
 		private void AddToGrid(T item, Point cell)
 		{
-			List<T> l = grid[cell];
-			if (!l.Contains(item))
+			List<T> l;
+			Grid.TryGetValue(cell, out l);
+			if (l == null)
 			{
+				if (ListOfItemQueue.Count > 0)
+				{
+					l = ListOfItemQueue.Dequeue();
+				}
+				else
+				{
+					l = new List<T>();
+				}
 				l.Add(item);
+				Grid.Add(cell, l);
+			}
+			else
+			{
+				if (!l.Contains(item))
+				{
+					l.Add(item);
+				}
 			}
 		}
 
 		private void AddToItems(T item, Point cell)
 		{
 			List<Point> pl;
-			items.TryGetValue(item, out pl);
+			Items.TryGetValue(item, out pl);
 			if (pl == null)
 			{
-				if (listOfPointQueue.Count > 0)
+				if (ListOfPointQueue.Count > 0)
 				{
-					pl = listOfPointQueue.Dequeue();
+					pl = ListOfPointQueue.Dequeue();
 				}
 				else
 				{
 					pl = new List<Point>();
 				}
 				pl.Add(cell);
-				items.Add(item, pl);
+				Items.Add(item, pl);
 			}
 			else
 			{
@@ -88,24 +131,29 @@ namespace CollisionGrid
 			lock (lockObject)
 			{
 				Point c = Clamp(cell);
-				List<T> l = grid[c];
+				List<T> l;
+				Grid.TryGetValue(c, out l);
 
-				foreach (T i in l)
+				if (l != null)
 				{
-					List<Point> pl;
-					items.TryGetValue(i, out pl);
-					if (pl != null)
+					foreach (T i in l)
 					{
-						pl.Remove(c);
-						if (pl.Count == 0)
+						List<Point> pl;
+						Items.TryGetValue(i, out pl);
+						if (pl != null)
 						{
-							listOfPointQueue.Enqueue(pl);
-							items.Remove(i);
+							pl.Remove(c);
+							if (pl.Count == 0)
+							{
+								ListOfPointQueue.Enqueue(pl);
+								Items.Remove(i);
+							}
 						}
 					}
+					l.Clear();
+					ListOfItemQueue.Enqueue(l);
+					Grid.Remove(cell);
 				}
-
-				l.Clear();
 			}
 		}
 
@@ -121,6 +169,14 @@ namespace CollisionGrid
 			{
 				Remove(item);
 				Add(item, cell);
+			}
+		}
+
+		public bool IsEmpty(Point cell)
+		{
+			lock (lockObject)
+			{
+				return Get(cell).Length == 0;
 			}
 		}
 	}

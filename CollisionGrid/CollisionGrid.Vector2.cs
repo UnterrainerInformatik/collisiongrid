@@ -27,8 +27,23 @@ namespace CollisionGrid
 		}
 
 		/// <summary>
-		/// Adds a given item to a cell that contains the given position.
-		/// If the cell already contains the item, it is not added a second time.
+		///     Gets the first item encountered in the cell that contains the given position.
+		/// </summary>
+		/// <param name="position">The position</param>
+		/// <returns>
+		///     The item or default(T)
+		/// </returns>
+		public T First(Vector2 position)
+		{
+			lock (lockObject)
+			{
+				return First(Cell(position));
+			}
+		}
+
+		/// <summary>
+		///     Adds a given item to a cell that contains the given position.
+		///     If the cell already contains the item, it is not added a second time.
 		/// </summary>
 		/// <param name="item">The item to add</param>
 		/// <param name="position">The position.</param>
@@ -41,8 +56,8 @@ namespace CollisionGrid
 		}
 
 		/// <summary>
-		/// Removes all items from the cell that contains the given position.
-		/// If the items don't occupy another cell, they are removed as well.
+		///     Removes all items from the cell that contains the given position.
+		///     If the items don't occupy another cell, they are removed as well.
 		/// </summary>
 		/// <param name="position">The position.</param>
 		public void Remove(Vector2 position)
@@ -54,8 +69,8 @@ namespace CollisionGrid
 		}
 
 		/// <summary>
-		/// Removes all occurrences of the given item and re-adds it at the new cell that contains the given position.
-		/// If the item hasn't been in the grid before, this will just add it.
+		///     Removes all occurrences of the given item and re-adds it at the new cell that contains the given position.
+		///     If the item hasn't been in the grid before, this will just add it.
 		/// </summary>
 		/// <param name="item">The item to move</param>
 		/// <param name="position">The position.</param>
@@ -64,6 +79,14 @@ namespace CollisionGrid
 			lock (lockObject)
 			{
 				Move(item, Cell(position));
+			}
+		}
+
+		public bool IsEmpty(Vector2 position)
+		{
+			lock (lockObject)
+			{
+				return IsEmpty(Cell(position));
 			}
 		}
 	}

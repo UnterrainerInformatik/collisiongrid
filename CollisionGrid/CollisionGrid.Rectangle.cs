@@ -50,11 +50,36 @@ namespace CollisionGrid
 		}
 
 		/// <summary>
+		/// Gets the first item encountered in the cells that are hit by the given Axis-Aligned-Bounding-Box.
+		/// </summary>
+		/// <param name="aabb">The Axis-Aligned-Bounding-Box given in int-cell-coordinates</param>
+		/// <returns>
+		/// The item or default(T)
+		/// </returns>
+		public T First(Rectangle aabb)
+		{
+			lock (lockObject)
+			{
+				FillList(aabb);
+				result.Clear();
+				foreach (Point p in lop)
+				{
+					T content = First(p);
+					if (!content.Equals(default(T)))
+					{
+						return content;
+					}
+				}
+				return default(T);
+			}
+		}
+
+		/// <summary>
 		/// Adds a given item to the cells that are hit by the given Axis-Aligned-Bounding-Box.
 		/// If the cell already contains the item, it is not added a second time.
 		/// </summary>
 		/// <param name="item">The item to add</param>
-		/// <param name="aabb">The Axis-Aligned-Bounding-Box given in int-cell-coordinates.</param>
+		/// <param name="aabb">The Axis-Aligned-Bounding-Box given in int-cell-coordinates</param>
 		public void Add(T item, Rectangle aabb)
 		{
 			lock (lockObject)
@@ -71,7 +96,7 @@ namespace CollisionGrid
 		/// Removes all items from the cells that are hit by the given Axis-Aligned-Bounding-Box.
 		/// If the items don't occupy another cell, they are removed as well.
 		/// </summary>
-		/// <param name="aabb">The Axis-Aligned-Bounding-Box given in int-cell-coordinates.</param>
+		/// <param name="aabb">The Axis-Aligned-Bounding-Box given in int-cell-coordinates</param>
 		public void Remove(Rectangle aabb)
 		{
 			lock (lockObject)
@@ -89,7 +114,7 @@ namespace CollisionGrid
 		/// If the item hasn't been in the grid before, this will just add it.
 		/// </summary>
 		/// <param name="item">The item to move</param>
-		/// <param name="aabb">The Axis-Aligned-Bounding-Box given in int-cell-coordinates.</param>
+		/// <param name="aabb">The Axis-Aligned-Bounding-Box given in int-cell-coordinates</param>
 		public void Move(T item, Rectangle aabb)
 		{
 			lock (lockObject)
@@ -100,6 +125,22 @@ namespace CollisionGrid
 				{
 					Add(item, p);
 				}
+			}
+		}
+
+		public bool IsEmpty(Rectangle aabb)
+		{
+			lock (lockObject)
+			{
+				FillList(aabb);
+				foreach (Point p in lop)
+				{
+					if (!IsEmpty(p))
+					{
+						return false;
+					}
+				}
+				return true;
 			}
 		}
 	}

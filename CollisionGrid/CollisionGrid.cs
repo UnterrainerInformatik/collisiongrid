@@ -14,7 +14,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Microsoft.Xna.Framework;
 using Utilities.Geometry;
 
@@ -33,9 +32,10 @@ namespace CollisionGrid
 		public int NumberOfCellsX { get; private set; }
 		public int NumberOfCellsY { get; private set; }
 
-		private Dictionary<Point, List<T>> grid = new Dictionary<Point, List<T>>();
-		private Dictionary<T, List<Point>> items = new Dictionary<T, List<Point>>();
-		private Queue<List<Point>> listOfPointQueue = new Queue<List<Point>>(); 
+		private Dictionary<Point, List<T>> Grid { get; set; }
+		private Dictionary<T, List<Point>> Items { get; set; }
+		private Queue<List<Point>> ListOfPointQueue { get; set; }
+		private Queue<List<T>> ListOfItemQueue { get; set; }
 
 		public CollisionGrid(float width, float height, int numberOfCellsX, int numberOfCellsY)
 		{
@@ -46,20 +46,11 @@ namespace CollisionGrid
 			CellWidth = Width/NumberOfCellsX;
 			CellHeight = Height/NumberOfCellsY;
 
-			items = new Dictionary<T, List<Point>>();
-			grid = new Dictionary<Point, List<T>>();
-			InitGrid(grid);
-		}
+			Items = new Dictionary<T, List<Point>>();
+			Grid = new Dictionary<Point, List<T>>();
 
-		private void InitGrid(Dictionary<Point, List<T>> d)
-		{
-			for (int y = 0; y < NumberOfCellsY; y++)
-			{
-				for (int x = 0; x < NumberOfCellsX; x++)
-				{
-					d[new Point(x, y)] = new List<T>();
-				}
-			}
+			ListOfPointQueue = new Queue<List<Point>>();
+			ListOfItemQueue = new Queue<List<T>>();
 		}
 
 		public Point[] Get(T item)
@@ -67,7 +58,7 @@ namespace CollisionGrid
 			lock (lockObject)
 			{
 				List<Point> pl;
-				items.TryGetValue(item, out pl);
+				Items.TryGetValue(item, out pl);
 				if (pl == null)
 				{
 					return new Point[0];
@@ -85,7 +76,7 @@ namespace CollisionGrid
 			lock (lockObject)
 			{
 				List<Point> pl;
-				items.TryGetValue(item, out pl);
+				Items.TryGetValue(item, out pl);
 				if (pl == null)
 				{
 					return;
@@ -93,14 +84,43 @@ namespace CollisionGrid
 
 				foreach (Point p in pl)
 				{
-					grid[p].Remove(item);
+					RemoveFromGrid(item, p);
 				}
 
 				pl.Clear();
-				listOfPointQueue.Enqueue(pl);
-				items.Remove(item);
+				ListOfPointQueue.Enqueue(pl);
+				Items.Remove(item);
 			}
 		}
+
+		private void RemoveFromGrid(T item, Point cell)
+		{
+			List<T> tl;
+			Grid.TryGetValue(cell, out tl);
+			if (tl != null)
+			{
+				tl.Remove(item);
+				if (tl.Count == 0)
+				{
+					if (ListOfItemQueue.Count == 0)
+					{
+						Console.Out.WriteLine("Yippie!");
+					}
+					ListOfItemQueue.Enqueue(tl);
+					Grid.Remove(cell);
+				}
+			}
+		}
+
+		public IEnumerable<T> AllItems()
+		{
+			return Items.Keys;
+		}
+
+		public IEnumerable<Point> AllOccupiedCells()
+		{
+			return Grid.Keys;
+		} 
 
 		private Rectangle Rectangle(Rect rect)
 		{
@@ -151,12 +171,14 @@ namespace CollisionGrid
 		{
 			lock (lockObject)
 			{
-				listOfPointQueue.Clear();
-				listOfPointQueue = null;
-				grid.Clear();
-				grid = null;
-				items.Clear();
-				items = null;
+				ListOfPointQueue.Clear();
+				ListOfPointQueue = null;
+				ListOfItemQueue.Clear();
+				ListOfItemQueue = null;
+				Grid.Clear();
+				Grid = null;
+				Items.Clear();
+				Items = null;
 			}
 		}
 	}

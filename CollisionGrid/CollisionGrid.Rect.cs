@@ -27,6 +27,21 @@ namespace CollisionGrid
 		}
 
 		/// <summary>
+		/// Gets the first item encountered in the cells that are hit by the given Axis-Aligned-Bounding-Box.
+		/// </summary>
+		/// <param name="aabb">The Axis-Aligned-Bounding-Box given in int-cell-coordinates</param>
+		/// <returns>
+		/// The item or default(T)
+		/// </returns>
+		public T First(Rect aabb)
+		{
+			lock (lockObject)
+			{
+				return First(Rectangle(aabb));
+			}
+		}
+
+		/// <summary>
 		/// Adds a given item to the cells that are hit by the given Axis-Aligned-Bounding-Box.
 		/// If the cell already contains the item, it is not added a second time.
 		/// </summary>
@@ -64,6 +79,14 @@ namespace CollisionGrid
 			lock (lockObject)
 			{
 				Move(item, Rectangle(aabb));
+			}
+		}
+
+		public bool IsEmpty(Rect aabb)
+		{
+			lock (lockObject)
+			{
+				return IsEmpty(Rectangle(aabb));
 			}
 		}
 	}
