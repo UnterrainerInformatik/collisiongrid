@@ -95,9 +95,9 @@ namespace Test
                 {
                     for (int y = 0; y < Grid.NumberOfCellsY; y++)
                     {
-                        Rectangle cell = new Rectangle((int) (Position.X + x*Grid.CellWidth),
-                            (int) (Position.Y + y*Grid.CellHeight),
-                            (int) Grid.CellWidth, (int) Grid.CellHeight);
+                        RectangleF cell = new RectangleF(Position.X + x*Grid.CellWidth, Position.Y + y*Grid.CellHeight,
+                            Grid.CellWidth, Grid.CellHeight);
+
                         int l = Grid.Get(new Point(x, y)).Length;
 
                         Color c;

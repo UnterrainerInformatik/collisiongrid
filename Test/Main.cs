@@ -26,6 +26,7 @@
 // ***************************************************************************
 
 using System;
+using System.Security.Principal;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -49,6 +50,7 @@ namespace Test
 
             Window.AllowUserResizing = true;
             Window.Position = Point.Zero;
+            IsMouseVisible = true;
         }
 
         protected override void Initialize()
