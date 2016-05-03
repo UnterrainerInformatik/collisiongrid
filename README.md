@@ -33,6 +33,7 @@
 
 ```
 [![NuGet](https://img.shields.io/nuget/v/CollisionGrid.svg?maxAge=2592000)](https://www.nuget.org/packages/CollisionGrid/)
+[![license](https://img.shields.io/github/license/unterrainerinformatik/collisiongrid.svg?maxAge=2592000)](http://unlicense.org)
 
 # General  
 
