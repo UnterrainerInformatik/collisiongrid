@@ -37,11 +37,11 @@ namespace CollisionGrid
 
         private void FillList(Rectangle aabb)
         {
-            var r = Clamp(aabb);
+            Rectangle r = Clamp(aabb);
             lop.Clear();
-            for (var y = 0; y < r.Size.Y; y++)
+            for (int y = 0; y < r.Size.Y; y++)
             {
-                for (var x = 0; x < r.Size.X; x++)
+                for (int x = 0; x < r.Size.X; x++)
                 {
                     lop.Add(new Point(r.X + x, r.Y + y));
                 }
@@ -54,9 +54,9 @@ namespace CollisionGrid
             {
                 FillList(aabb);
                 result.Clear();
-                foreach (var p in lop)
+                foreach (Point p in lop)
                 {
-                    foreach (var i in Get(p))
+                    foreach (T i in Get(p))
                     {
                         if (!result.Contains(i))
                         {
@@ -81,9 +81,9 @@ namespace CollisionGrid
             {
                 FillList(aabb);
                 result.Clear();
-                foreach (var p in lop)
+                foreach (Point p in lop)
                 {
-                    var content = First(p);
+                    T content = First(p);
                     if (!content.Equals(default(T)))
                     {
                         return content;
@@ -104,7 +104,7 @@ namespace CollisionGrid
             lock (lockObject)
             {
                 FillList(aabb);
-                foreach (var p in lop)
+                foreach (Point p in lop)
                 {
                     Add(item, p);
                 }
@@ -121,7 +121,7 @@ namespace CollisionGrid
             lock (lockObject)
             {
                 FillList(aabb);
-                foreach (var p in lop)
+                foreach (Point p in lop)
                 {
                     Remove(p);
                 }
@@ -141,7 +141,7 @@ namespace CollisionGrid
             {
                 Remove(item);
                 FillList(aabb);
-                foreach (var p in lop)
+                foreach (Point p in lop)
                 {
                     Add(item, p);
                 }
@@ -153,7 +153,7 @@ namespace CollisionGrid
             lock (lockObject)
             {
                 FillList(aabb);
-                foreach (var p in lop)
+                foreach (Point p in lop)
                 {
                     if (!IsEmpty(p))
                     {

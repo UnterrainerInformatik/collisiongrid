@@ -26,11 +26,13 @@
 // ***************************************************************************
 
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Microsoft.Xna.Framework;
-using Utilities.Geometry;
+using MonoGame.Extended.Shapes;
 
 namespace CollisionGrid
 {
+    [PublicAPI]
     public partial class CollisionGrid<T>
     {
         private readonly object lockObject = new object();
@@ -94,7 +96,7 @@ namespace CollisionGrid
                     return;
                 }
 
-                foreach (var p in pl)
+                foreach (Point p in pl)
                 {
                     RemoveFromGrid(item, p);
                 }
@@ -128,11 +130,11 @@ namespace CollisionGrid
 
         public int ItemCount => Grid.Keys.Count;
 
-        private Rectangle Rectangle(Rect rect)
+        private Rectangle Rectangle(RectangleF rect)
         {
-            var tl = Cell(rect.TopLeft);
-            var br = Cell(rect.BottomRight);
-            var s = br - tl + new Point(1, 1);
+            Point tl = Cell(rect.Location);
+            Point br = Cell(rect.Location + rect.Size);
+            Point s = br - tl + new Point(1, 1);
             return new Rectangle(tl, s);
         }
 
@@ -143,15 +145,15 @@ namespace CollisionGrid
 
         private Rectangle Clamp(Rectangle rectangle)
         {
-            var tl = Clamp(rectangle.Location);
-            var br = Clamp(rectangle.Location + rectangle.Size - new Point(1, 1));
-            var s = br - tl + new Point(1, 1);
+            Point tl = Clamp(rectangle.Location);
+            Point br = Clamp(rectangle.Location + rectangle.Size - new Point(1, 1));
+            Point s = br - tl + new Point(1, 1);
             return new Rectangle(tl, s);
         }
 
         private Point Clamp(Point p)
         {
-            var nx = p.X;
+            int nx = p.X;
             if (nx >= NumberOfCellsX)
             {
                 nx = NumberOfCellsX - 1;
@@ -161,7 +163,7 @@ namespace CollisionGrid
                 nx = 0;
             }
 
-            var ny = p.Y;
+            int ny = p.Y;
             if (ny >= NumberOfCellsY)
             {
                 ny = NumberOfCellsY - 1;

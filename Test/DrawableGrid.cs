@@ -25,12 +25,12 @@
 // For more information, please refer to <http://unlicense.org>
 // ***************************************************************************
 
+using System;
 using System.Collections.Generic;
 using CollisionGrid;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Utilities;
-using Utilities.Randomizing;
+using MonoGame.Extended.Shapes;
 
 namespace Test
 {
@@ -58,16 +58,16 @@ namespace Test
         public override void Initialize()
         {
             base.Initialize();
-            var rand = RandomizerController.Randomizer;
-            for (var i = 0; i < NUMBER_OF_SPRITES; i++)
+            Random rand = new Random(1);
+            for (int i = 0; i < NUMBER_OF_SPRITES; i++)
             {
-                var s = new Sprite(Game, SpriteBatch, new Point((int) width, (int) height));
-                s.Trajectory = new Vector2(rand.RandomBetween(-1f, 1f), rand.RandomBetween(-1f, 1f));
+                Sprite s = new Sprite(Game, SpriteBatch, new Point((int) width, (int) height));
+                s.Trajectory = new Vector2(rand.Next(-1000, 1000)/1000f, rand.Next(-1000, 1000)/1000f);
                 s.Trajectory.Normalize();
-                s.Position = new Vector2(rand.RandomBetween(0f, 700f), rand.RandomBetween(0f, 700f));
-                s.Velocity = rand.RandomBetween(.1f, 4f);
-                s.Width = rand.RandomBetween(5, 53);
-                s.Height = rand.RandomBetween(5, 53);
+                s.Position = new Vector2(rand.Next(0, 700), rand.Next(0, 700));
+                s.Velocity = rand.Next(100, 4000)/1000f;
+                s.Width = rand.Next(5, 53);
+                s.Height = rand.Next(5, 53);
 
                 s.Initialize();
                 Game.Components.Add(s);
@@ -78,7 +78,7 @@ namespace Test
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            foreach (var s in sprites)
+            foreach (Sprite s in sprites)
             {
                 Grid.Move(s, s.GetAabb());
             }
@@ -89,28 +89,34 @@ namespace Test
             if (Visible)
             {
                 SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
-                var r = new Rectangle((int) Position.X, (int) Position.Y, (int) width, (int) height);
+                Rectangle r = new Rectangle((int) Position.X, (int) Position.Y, (int) width, (int) height);
                 SpriteBatch.DrawRectangle(r, Color.Yellow);
-                for (var x = 0; x < Grid.NumberOfCellsX; x++)
+                for (int x = 0; x < Grid.NumberOfCellsX; x++)
                 {
-                    for (var y = 0; y < Grid.NumberOfCellsY; y++)
+                    for (int y = 0; y < Grid.NumberOfCellsY; y++)
                     {
-                        var cell = new Rectangle((int) (Position.X + x*Grid.CellWidth),
+                        Rectangle cell = new Rectangle((int) (Position.X + x*Grid.CellWidth),
                             (int) (Position.Y + y*Grid.CellHeight),
                             (int) Grid.CellWidth, (int) Grid.CellHeight);
-                        var l = Grid.Get(new Point(x, y)).Length;
+                        int l = Grid.Get(new Point(x, y)).Length;
+
+                        Color c;
                         if (l > 0)
                         {
-                            var f = l/4f;
+                            float f = l/4f;
                             if (f > 1)
                             {
                                 f = 1;
                             }
-                            SpriteBatch.FillRectangle(cell, Utils.SetTransparencyOnColor(Color.Red, f));
+                            c = Color.Red;
+                            c.A = (byte) (255f*f);
+                            SpriteBatch.FillRectangle(cell, c);
                         }
                         else
                         {
-                            SpriteBatch.DrawRectangle(cell, Utils.SetTransparencyOnColor(Color.Yellow, .5f));
+                            c = Color.Yellow;
+                            c.A = (byte) (255f*.5f);
+                            SpriteBatch.DrawRectangle(cell, c);
                         }
                     }
                 }

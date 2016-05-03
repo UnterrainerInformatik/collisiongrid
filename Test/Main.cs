@@ -28,7 +28,6 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Utilities;
 
 namespace Test
 {
@@ -47,19 +46,14 @@ namespace Test
             GraphicsDeviceManager.PreferredBackBufferWidth = MIN_SCREEN_RESOLUTION_WIDTH;
             GraphicsDeviceManager.PreferredBackBufferHeight = MIN_SCREEN_RESOLUTION_HEIGHT;
             GraphicsDeviceManager.IsFullScreen = false;
+
+            Window.AllowUserResizing = true;
+            Window.Position = Point.Zero;
         }
 
         protected override void Initialize()
         {
-            var screenBounds = Utils.InitGraphicsMode(this, GraphicsDeviceManager, MIN_SCREEN_RESOLUTION_WIDTH,
-                MIN_SCREEN_RESOLUTION_HEIGHT, false);
-            if (screenBounds == null)
-            {
-                Console.Out.WriteLine("Severe error opening and initializing window.");
-                Exit();
-            }
-
-            var grid = new DrawableGrid(this, new SpriteBatch(GraphicsDevice), 700, 700, 40, 40);
+            DrawableGrid grid = new DrawableGrid(this, new SpriteBatch(GraphicsDevice), 700, 700, 40, 40);
             Components.Add(grid);
             grid.Initialize();
         }

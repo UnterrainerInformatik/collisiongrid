@@ -25,13 +25,13 @@
 // For more information, please refer to <http://unlicense.org>
 // ***************************************************************************
 
-using Utilities.Geometry;
+using MonoGame.Extended.Shapes;
 
 namespace CollisionGrid
 {
     public partial class CollisionGrid<T>
     {
-        public T[] Get(Rect aabb)
+        public T[] Get(RectangleF aabb)
         {
             lock (lockObject)
             {
@@ -46,7 +46,7 @@ namespace CollisionGrid
         /// <returns>
         ///     The item or default(T)
         /// </returns>
-        public T First(Rect aabb)
+        public T First(RectangleF aabb)
         {
             lock (lockObject)
             {
@@ -60,7 +60,7 @@ namespace CollisionGrid
         /// </summary>
         /// <param name="item">The item to add</param>
         /// <param name="aabb">The Axis-Aligned-Bounding-Box given in float-grid-coordinates.</param>
-        public void Add(T item, Rect aabb)
+        public void Add(T item, RectangleF aabb)
         {
             lock (lockObject)
             {
@@ -73,7 +73,7 @@ namespace CollisionGrid
         ///     If the items don't occupy another cell, they are removed as well.
         /// </summary>
         /// <param name="aabb">The Axis-Aligned-Bounding-Box given in float-grid-coordinates.</param>
-        public void Remove(Rect aabb)
+        public void Remove(RectangleF aabb)
         {
             lock (lockObject)
             {
@@ -88,7 +88,7 @@ namespace CollisionGrid
         /// </summary>
         /// <param name="item">The item to move</param>
         /// <param name="aabb">The Axis-Aligned-Bounding-Box given in float-grid-coordinates.</param>
-        public void Move(T item, Rect aabb)
+        public void Move(T item, RectangleF aabb)
         {
             lock (lockObject)
             {
@@ -96,7 +96,7 @@ namespace CollisionGrid
             }
         }
 
-        public bool IsEmpty(Rect aabb)
+        public bool IsEmpty(RectangleF aabb)
         {
             lock (lockObject)
             {

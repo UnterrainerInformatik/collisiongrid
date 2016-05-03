@@ -75,7 +75,7 @@ namespace CollisionGrid
         {
             lock (lockObject)
             {
-                var c = Clamp(cell);
+                Point c = Clamp(cell);
                 AddToGrid(item, c);
                 AddToItems(item, c);
             }
@@ -142,13 +142,13 @@ namespace CollisionGrid
         {
             lock (lockObject)
             {
-                var c = Clamp(cell);
+                Point c = Clamp(cell);
                 List<T> l;
                 Grid.TryGetValue(c, out l);
 
                 if (l != null)
                 {
-                    foreach (var i in l)
+                    foreach (T i in l)
                     {
                         List<Point> pl;
                         ItemDictionary.TryGetValue(i, out pl);

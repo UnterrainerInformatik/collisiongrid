@@ -27,8 +27,7 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Utilities;
-using Utilities.Geometry;
+using MonoGame.Extended.Shapes;
 
 namespace Test
 {
@@ -81,9 +80,9 @@ namespace Test
             }
         }
 
-        public Rect GetAabb()
+        public RectangleF GetAabb()
         {
-            return new Rect(Position.X - Width/2f, Position.Y - Height/2f, Width, Height);
+            return new RectangleF(Position.X - Width/2f, Position.Y - Height/2f, Width, Height);
         }
 
         public override void Draw(GameTime gameTime)

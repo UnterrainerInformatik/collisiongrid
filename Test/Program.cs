@@ -35,7 +35,7 @@ namespace Test
         // ReSharper disable once UnusedParameter.Local
         private static void Main(string[] args)
         {
-            using (var game = new Main())
+            using (Main game = new Main())
             {
                 game.Run();
             }
