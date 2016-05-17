@@ -105,10 +105,11 @@ protected override void UnloadContent()
 ## So What's A QuadTree Then?
 Maybe you've heard of such a data-structure that does essentially exactly the same things as this grid with one major difference:  
   
-The QuadTree divides the space itself.  
-It doesn't need a fixed grid, but divides it unevenly and only when another partition is needed.  
-And that's good and bad at the same time.  
-Unfortunately that costs a lot of time (the updating of this data-structure); At least when compared to the grid.  
+The QuadTree divides the space all by itself, dynamically whenever you add new items.  
+It doesn't need a fixed uniform grid, but divides it unevenly and only when another partition is needed.  
+And that's good and bad at the same time.
+The goog thing is that it can cope with unevenly distributed items.
+The bad thing is that it costs a lot more time (the updating of this data-structure); At least when compared to the grid.  
 [Here's a very good implementation on GitHub with an excellent explanation what it does.][quadtree]  
   
 The good news about the QuadTree is that it's exactly what you're looking for if you thought...
