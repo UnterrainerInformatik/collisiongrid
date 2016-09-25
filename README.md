@@ -14,11 +14,11 @@ If you want to contribute to our repository (push, open pull requests), please u
 # CollisionGrid  
 
 This class implements a collision-grid.  
-When doing game development you've all come across a point when you'd like to do some collision-checks and that's usually the time when you realize that just checking all sprites against each other just doesn't cut it.  
-The problem is that the number of checks grow very fast (N² for N sprites) when the number of your sprites grow.  
+When doing game development you've probably come across a point when you'd liked to do some collision-checks and that's usually the time when you've realize that just checking all sprites against each other doesn't cut it.  
+The problem with that brute-force-approach is, that the number of checks grow very fast (N² for N sprites) when the number of your sprites increase.  
   
-So you somehow have to narrow down your collision-candidates.
-This piece of software does that for you. It does not do collision checking itself. It just tells you if a sprite is near enough to a second one to maybe collide which allows you to do a collision test for those two, or three, or five...  
+So you somehow have to narrow down your collision-candidates.  
+This piece of software does that for you. It does not do the collision checks themself. It just tells you if a sprite may be near enough to a second one to maybe collide with it, which allows you to do a collision test for those two, or three, or five sprites instead of the whole bunch.  
 ## What It Really Does...
 ...is a simple trade-off.  
 You may query it about the sprites around your coordinate or rectangle, but your sprites have to register with it and update their position/AABB on every update.
@@ -105,14 +105,15 @@ protected override void UnloadContent()
 ## So What's A QuadTree Then?
 Maybe you've heard of such a data-structure that does essentially exactly the same things as this grid with one major difference:  
   
-The QuadTree divides the space itself.  
-It doesn't need a fixed grid, but divides it unevenly and only when another partition is needed.  
-And that's good and bad at the same time.  
-Unfortunately that costs a lot of time (the updating of this data-structure); At least when compared to the grid.  
-[Here's a very good implementation on GitHub with an excellent explanation what it does.][quadtree]  
+The QuadTree divides the space all by itself, dynamically whenever you add new items.  
+It doesn't need a fixed uniform grid, but divides space unevenly and only when another partition is needed.  
+And that's good and bad at the same time.
+The good thing is that it can cope with unevenly distributed items very well.
+The bad thing is that it costs a lot more time (the updating of this data-structure); At least when compared to this grid here.  
+[Here's a very good implementation of a QuadTree on GitHub with an excellent explanation what it exactly does.][quadtree]  
   
-The good news about the QuadTree is that it's exactly what you're looking for if you thought...
-> Oh! Nice thing this grid. But the space I have to check is REALLY BIG and my sprites are very unevenly distributed. Most of the time they are clustered with much space in between those clusters. So my cells become way too big for those clusters to help in any way.
+The good news about the QuadTree is that it's exactly what you're looking for if you are thinking...
+> Oh! Nice thing this grid. But the space I have to check is REALLY BIG and my sprites are very unevenly distributed. Most of the time they are clustered with much space in between those clusters. So my cells become way too big to segment those clusters in a helpful way.
 
 ...when reading the explanation of the CollisionGrid.
   
