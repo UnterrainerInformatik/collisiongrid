@@ -12,6 +12,21 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,17 +50,22 @@
   <PropertyGroup>
     <StartupObject>Test.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Extended, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MonoGame.Extended.0.5.149\lib\MonoGame.Extended.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MonoGame.Framework, Version=3.5.1.1679, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonoGame.Framework.WindowsDX.3.5.1.1679\lib\net40\MonoGame.Framework.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="MonoGame.Framework, Version=3.6.0.1060, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>_EXTERNAL_LIBRARIES\MonoGame\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -66,8 +86,46 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.manifest" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\external\OpenTK.dll" />
+    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\Lidgren.Network.dll" />
+    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\Lidgren.Network.xml" />
+    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\MonoGame.Framework.dll" />
+    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\MonoGame.Framework.Net.dll" />
+    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\MonoGame.Framework.Net.xml" />
+    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.Direct2D1.dll" />
+    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.Direct2D1.xml" />
+    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.Direct3D11.dll" />
+    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.Direct3D11.xml" />
+    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.Direct3D9.dll" />
+    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.Direct3D9.xml" />
+    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.dll" />
+    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.DXGI.dll" />
+    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.DXGI.xml" />
+    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.MediaFoundation.dll" />
+    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.MediaFoundation.xml" />
+    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.RawInput.dll" />
+    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.RawInput.xml" />
+    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.XAudio2.dll" />
+    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.XAudio2.xml" />
+    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.XInput.dll" />
+    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.XInput.xml" />
+    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

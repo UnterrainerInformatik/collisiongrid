@@ -26,7 +26,7 @@
 // ***************************************************************************
 
 using System;
-using System.Security.Principal;
+using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -47,10 +47,16 @@ namespace Test
             GraphicsDeviceManager.PreferredBackBufferWidth = MIN_SCREEN_RESOLUTION_WIDTH;
             GraphicsDeviceManager.PreferredBackBufferHeight = MIN_SCREEN_RESOLUTION_HEIGHT;
             GraphicsDeviceManager.IsFullScreen = false;
+            GraphicsDeviceManager.PreparingDeviceSettings += PrepareDeviceSettings;
 
             Window.AllowUserResizing = true;
             Window.Position = Point.Zero;
             IsMouseVisible = true;
+        }
+
+        void PrepareDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e)
+        {
+            e.GraphicsDeviceInformation.GraphicsProfile = GraphicsProfile.Reach;
         }
 
         protected override void Initialize()
