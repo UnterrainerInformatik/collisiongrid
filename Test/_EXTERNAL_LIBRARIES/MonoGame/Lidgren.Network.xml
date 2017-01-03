@@ -34,6 +34,11 @@
             Base for a non-threadsafe encryption class
             </summary>
         </member>
+        <member name="P:Lidgren.Network.NetBlockEncryptionBase.BlockSize">
+            <summary>
+            Block size in bytes for this cipher
+            </summary>
+        </member>
         <member name="M:Lidgren.Network.NetBlockEncryptionBase.#ctor(Lidgren.Network.NetPeer)">
             <summary>
             NetBlockEncryptionBase constructor
@@ -59,11 +64,6 @@
         <member name="M:Lidgren.Network.NetBlockEncryptionBase.DecryptBlock(System.Byte[],System.Int32,System.Byte[])">
             <summary>
             Decrypt a block of bytes
-            </summary>
-        </member>
-        <member name="P:Lidgren.Network.NetBlockEncryptionBase.BlockSize">
-            <summary>
-            Block size in bytes for this cipher
             </summary>
         </member>
         <member name="T:Lidgren.Network.NetXorEncryption">
@@ -96,6 +96,11 @@
             Methods to encrypt and decrypt data using the XTEA algorithm
             </summary>
         </member>
+        <member name="P:Lidgren.Network.NetXtea.BlockSize">
+            <summary>
+            Gets the block size for this cipher
+            </summary>
+        </member>
         <member name="M:Lidgren.Network.NetXtea.#ctor(Lidgren.Network.NetPeer,System.Byte[],System.Int32)">
             <summary>
             16 byte key
@@ -121,11 +126,6 @@
             Decrypts a block of bytes
             </summary>
         </member>
-        <member name="P:Lidgren.Network.NetXtea.BlockSize">
-            <summary>
-            Gets the block size for this cipher
-            </summary>
-        </member>
         <member name="T:Lidgren.Network.NamespaceDoc">
             <summary>
             Lidgren Network Library
@@ -139,6 +139,11 @@
         <member name="T:Lidgren.Network.NetBitVector">
             <summary>
             Fixed size vector of booleans
+            </summary>
+        </member>
+        <member name="P:Lidgren.Network.NetBitVector.Capacity">
+            <summary>
+            Gets the number of bits/booleans stored in this vector
             </summary>
         </member>
         <member name="M:Lidgren.Network.NetBitVector.#ctor(System.Int32)">
@@ -177,6 +182,11 @@
             Sets or clears the bit/bool at the specified index
             </summary>
         </member>
+        <member name="P:Lidgren.Network.NetBitVector.Bit(System.Int32)">
+            <summary>
+            Gets the bit/bool at the specified index
+            </summary>
+        </member>
         <member name="M:Lidgren.Network.NetBitVector.Clear">
             <summary>
             Sets all bits/booleans to zero/false
@@ -185,16 +195,6 @@
         <member name="M:Lidgren.Network.NetBitVector.ToString">
             <summary>
             Returns a string that represents this object
-            </summary>
-        </member>
-        <member name="P:Lidgren.Network.NetBitVector.Capacity">
-            <summary>
-            Gets the number of bits/booleans stored in this vector
-            </summary>
-        </member>
-        <member name="P:Lidgren.Network.NetBitVector.Bit(System.Int32)">
-            <summary>
-            Gets the bit/bool at the specified index
             </summary>
         </member>
         <member name="T:Lidgren.Network.NetBitWriter">
@@ -266,6 +266,31 @@
         <member name="F:Lidgren.Network.NetBuffer.c_overAllocateAmount">
             <summary>
             Number of bytes to overallocate for each message to avoid resizing
+            </summary>
+        </member>
+        <member name="P:Lidgren.Network.NetBuffer.Data">
+            <summary>
+            Gets or sets the internal data buffer
+            </summary>
+        </member>
+        <member name="P:Lidgren.Network.NetBuffer.LengthBytes">
+            <summary>
+            Gets or sets the length of the used portion of the buffer in bytes
+            </summary>
+        </member>
+        <member name="P:Lidgren.Network.NetBuffer.LengthBits">
+            <summary>
+            Gets or sets the length of the used portion of the buffer in bits
+            </summary>
+        </member>
+        <member name="P:Lidgren.Network.NetBuffer.Position">
+            <summary>
+            Gets or sets the read position in the buffer, in bits (not bytes)
+            </summary>
+        </member>
+        <member name="P:Lidgren.Network.NetBuffer.PositionInBytes">
+            <summary>
+            Gets the position in the buffer in bytes; note that the bits of the first returned byte may already have been read - check the Position property to make sure.
             </summary>
         </member>
         <member name="M:Lidgren.Network.NetBuffer.PeekDataBuffer">
@@ -846,31 +871,6 @@
             Writes all properties with specified binding in alphabetical order using reflection
             </summary>
         </member>
-        <member name="P:Lidgren.Network.NetBuffer.Data">
-            <summary>
-            Gets or sets the internal data buffer
-            </summary>
-        </member>
-        <member name="P:Lidgren.Network.NetBuffer.LengthBytes">
-            <summary>
-            Gets or sets the length of the used portion of the buffer in bytes
-            </summary>
-        </member>
-        <member name="P:Lidgren.Network.NetBuffer.LengthBits">
-            <summary>
-            Gets or sets the length of the used portion of the buffer in bits
-            </summary>
-        </member>
-        <member name="P:Lidgren.Network.NetBuffer.Position">
-            <summary>
-            Gets or sets the read position in the buffer, in bits (not bytes)
-            </summary>
-        </member>
-        <member name="P:Lidgren.Network.NetBuffer.PositionInBytes">
-            <summary>
-            Gets the position in the buffer in bytes; note that the bits of the first returned byte may already have been read - check the Position property to make sure.
-            </summary>
-        </member>
         <member name="T:Lidgren.Network.SingleUIntUnion">
             <summary>
             Utility struct for writing Singles
@@ -891,260 +891,14 @@
             Specialized version of NetPeer used for a "client" connection. It does not accept any incoming connections and maintains a ServerConnection property
             </summary>
         </member>
-        <member name="T:Lidgren.Network.NetPeer">
+        <member name="P:Lidgren.Network.NetClient.ServerConnection">
             <summary>
-            Represents a local peer capable of holding zero, one or more connections to remote peers
+            Gets the connection to the server, if any
             </summary>
         </member>
-        <member name="M:Lidgren.Network.NetPeer.Introduce(System.Net.IPEndPoint,System.Net.IPEndPoint,System.Net.IPEndPoint,System.Net.IPEndPoint,System.String)">
+        <member name="P:Lidgren.Network.NetClient.ConnectionStatus">
             <summary>
-            Send NetIntroduction to hostExternal and clientExternal; introducing client to host
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.HandleNatIntroduction(System.Int32)">
-            <summary>
-            Called when host/client receives a NatIntroduction message from a master server
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.HandleNatPunch(System.Int32,System.Net.IPEndPoint)">
-            <summary>
-            Called when receiving a NatPunchMessage from a remote endpoint
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.#ctor(Lidgren.Network.NetPeerConfiguration)">
-            <summary>
-            NetPeer constructor
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.Start">
-            <summary>
-            Binds to socket and spawns the networking thread
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.GetConnection(System.Net.IPEndPoint)">
-            <summary>
-            Get the connection, if any, for a certain remote endpoint
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.WaitMessage(System.Int32)">
-            <summary>
-            Read a pending message from any connection, blocking up to maxMillis if needed
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.ReadMessage">
-            <summary>
-            Read a pending message from any connection, if any
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.ReadMessages(System.Collections.Generic.IList{Lidgren.Network.NetIncomingMessage})">
-            <summary>
-            Read a pending message from any connection, if any
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.Connect(System.String,System.Int32)">
-            <summary>
-            Create a connection to a remote endpoint
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.Connect(System.String,System.Int32,Lidgren.Network.NetOutgoingMessage)">
-            <summary>
-            Create a connection to a remote endpoint
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.Connect(System.Net.IPEndPoint)">
-            <summary>
-            Create a connection to a remote endpoint
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.Connect(System.Net.IPEndPoint,Lidgren.Network.NetOutgoingMessage)">
-            <summary>
-            Create a connection to a remote endpoint
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.RawSend(System.Byte[],System.Int32,System.Int32,System.Net.IPEndPoint)">
-            <summary>
-            Send raw bytes; only used for debugging
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.ThrowOrLog(System.String)">
-            <summary>
-            In DEBUG, throws an exception, in RELEASE logs an error message
-            </summary>
-            <param name="message"></param>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.Shutdown(System.String)">
-            <summary>
-            Disconnects all active connections and closes the socket
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.DiscoverLocalPeers(System.Int32)">
-            <summary>
-            Emit a discovery signal to all hosts on your subnet
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.DiscoverKnownPeer(System.String,System.Int32)">
-            <summary>
-            Emit a discovery signal to a single known host
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.DiscoverKnownPeer(System.Net.IPEndPoint)">
-            <summary>
-            Emit a discovery signal to a single known host
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.SendDiscoveryResponse(Lidgren.Network.NetOutgoingMessage,System.Net.IPEndPoint)">
-            <summary>
-            Send a discovery response message
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.RegisterReceivedCallback(System.Threading.SendOrPostCallback,System.Threading.SynchronizationContext)">
-            <summary>
-            Call this to register a callback for when a new message arrives
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.UnregisterReceivedCallback(System.Threading.SendOrPostCallback)">
-            <summary>
-            Call this to unregister a callback, but remember to do it in the same synchronization context!
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.FlushSendQueue">
-            <summary>
-            If NetPeerConfiguration.AutoFlushSendQueue() is false; you need to call this to send all messages queued using SendMessage()
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.CreateMessage">
-            <summary>
-            Creates a new message for sending
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.CreateMessage(System.String)">
-            <summary>
-            Creates a new message for sending and writes the provided string to it
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.CreateMessage(System.Int32)">
-            <summary>
-            Creates a new message for sending
-            </summary>
-            <param name="initialCapacity">initial capacity in bytes</param>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.Recycle(Lidgren.Network.NetIncomingMessage)">
-            <summary>
-            Recycles a NetIncomingMessage instance for reuse; taking pressure off the garbage collector
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.Recycle(System.Collections.Generic.IEnumerable{Lidgren.Network.NetIncomingMessage})">
-            <summary>
-            Recycles a list of NetIncomingMessage instances for reuse; taking pressure off the garbage collector
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.CreateIncomingMessage(Lidgren.Network.NetIncomingMessageType,System.String)">
-            <summary>
-            Creates an incoming message with the required capacity for releasing to the application
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.SendMessage(Lidgren.Network.NetOutgoingMessage,Lidgren.Network.NetConnection,Lidgren.Network.NetDeliveryMethod)">
-            <summary>
-            Send a message to a specific connection
-            </summary>
-            <param name="msg">The message to send</param>
-            <param name="recipient">The recipient connection</param>
-            <param name="method">How to deliver the message</param>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.SendMessage(Lidgren.Network.NetOutgoingMessage,Lidgren.Network.NetConnection,Lidgren.Network.NetDeliveryMethod,System.Int32)">
-            <summary>
-            Send a message to a specific connection
-            </summary>
-            <param name="msg">The message to send</param>
-            <param name="recipient">The recipient connection</param>
-            <param name="method">How to deliver the message</param>
-            <param name="sequenceChannel">Sequence channel within the delivery method</param>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.SendMessage(Lidgren.Network.NetOutgoingMessage,System.Collections.Generic.List{Lidgren.Network.NetConnection},Lidgren.Network.NetDeliveryMethod,System.Int32)">
-            <summary>
-            Send a message to a list of connections
-            </summary>
-            <param name="msg">The message to send</param>
-            <param name="recipients">The list of recipients to send to</param>
-            <param name="method">How to deliver the message</param>
-            <param name="sequenceChannel">Sequence channel within the delivery method</param>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.SendUnconnectedMessage(Lidgren.Network.NetOutgoingMessage,System.String,System.Int32)">
-            <summary>
-            Send a message to an unconnected host
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.SendUnconnectedMessage(Lidgren.Network.NetOutgoingMessage,System.Net.IPEndPoint)">
-            <summary>
-            Send a message to an unconnected host
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.SendUnconnectedMessage(Lidgren.Network.NetOutgoingMessage,System.Collections.Generic.IList{System.Net.IPEndPoint})">
-            <summary>
-            Send a message to an unconnected host
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeer.SendUnconnectedToSelf(Lidgren.Network.NetOutgoingMessage)">
-            <summary>
-            Send a message to this exact same netpeer (loopback)
-            </summary>
-        </member>
-        <member name="P:Lidgren.Network.NetPeer.Status">
-            <summary>
-            Gets the NetPeerStatus of the NetPeer
-            </summary>
-        </member>
-        <member name="P:Lidgren.Network.NetPeer.MessageReceivedEvent">
-            <summary>
-            Signalling event which can be waited on to determine when a message is queued for reading.
-            Note that there is no guarantee that after the event is signaled the blocked thread will 
-            find the message in the queue. Other user created threads could be preempted and dequeue 
-            the message before the waiting thread wakes up.
-            </summary>
-        </member>
-        <member name="P:Lidgren.Network.NetPeer.UniqueIdentifier">
-            <summary>
-            Gets a unique identifier for this NetPeer based on Mac address and ip/port. Note! Not available until Start() has been called!
-            </summary>
-        </member>
-        <member name="P:Lidgren.Network.NetPeer.Port">
-            <summary>
-            Gets the port number this NetPeer is listening and sending on, if Start() has been called
-            </summary>
-        </member>
-        <member name="P:Lidgren.Network.NetPeer.UPnP">
-            <summary>
-            Returns an UPnP object if enabled in the NetPeerConfiguration
-            </summary>
-        </member>
-        <member name="P:Lidgren.Network.NetPeer.Tag">
-            <summary>
-            Gets or sets the application defined object containing data about the peer
-            </summary>
-        </member>
-        <member name="P:Lidgren.Network.NetPeer.Connections">
-            <summary>
-            Gets a copy of the list of connections
-            </summary>
-        </member>
-        <member name="P:Lidgren.Network.NetPeer.ConnectionsCount">
-            <summary>
-            Gets the number of active connections
-            </summary>
-        </member>
-        <member name="P:Lidgren.Network.NetPeer.Statistics">
-            <summary>
-            Statistics on this NetPeer since it was initialized
-            </summary>
-        </member>
-        <member name="P:Lidgren.Network.NetPeer.Configuration">
-            <summary>
-            Gets the configuration used to instanciate this NetPeer
-            </summary>
-        </member>
-        <member name="P:Lidgren.Network.NetPeer.Socket">
-            <summary>
-            Gets the socket, if Start() has been called
+            Gets the connection status of the server connection (or NetConnectionStatus.Disconnected if no connection)
             </summary>
         </member>
         <member name="M:Lidgren.Network.NetClient.#ctor(Lidgren.Network.NetPeerConfiguration)">
@@ -1182,81 +936,9 @@
             Returns a string that represents this object
             </summary>
         </member>
-        <member name="P:Lidgren.Network.NetClient.ServerConnection">
-            <summary>
-            Gets the connection to the server, if any
-            </summary>
-        </member>
-        <member name="P:Lidgren.Network.NetClient.ConnectionStatus">
-            <summary>
-            Gets the connection status of the server connection (or NetConnectionStatus.Disconnected if no connection)
-            </summary>
-        </member>
         <member name="T:Lidgren.Network.NetConnection">
             <summary>
             Represents a connection to a remote peer
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetConnection.MutateEndPoint(System.Net.IPEndPoint)">
-            <summary>
-            Change the internal endpoint to this new one. Used when, during handshake, a switch in port is detected (due to NAT)
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetConnection.SendMessage(Lidgren.Network.NetOutgoingMessage,Lidgren.Network.NetDeliveryMethod,System.Int32)">
-            <summary>
-            Send a message to this remote connection
-            </summary>
-            <param name="msg">The message to send</param>
-            <param name="method">How to deliver the message</param>
-            <param name="sequenceChannel">Sequence channel within the delivery method</param>
-        </member>
-        <member name="M:Lidgren.Network.NetConnection.GetSendQueueInfo(Lidgren.Network.NetDeliveryMethod,System.Int32,System.Int32@,System.Int32@)">
-            <summary>
-            Zero windowSize indicates that the channel is not yet instantiated (used)
-            Negative freeWindowSlots means this amount of messages are currently queued but delayed due to closed window
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetConnection.ToString">
-            <summary>
-            Returns a string that represents this object
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetConnection.Approve">
-            <summary>
-            Approves this connection; sending a connection response to the remote host
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetConnection.Approve(Lidgren.Network.NetOutgoingMessage)">
-            <summary>
-            Approves this connection; sending a connection response to the remote host
-            </summary>
-            <param name="localHail">The local hail message that will be set as RemoteHailMessage on the remote host</param>
-        </member>
-        <member name="M:Lidgren.Network.NetConnection.Deny">
-            <summary>
-            Denies this connection; disconnecting it
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetConnection.Deny(System.String)">
-            <summary>
-            Denies this connection; disconnecting it
-            </summary>
-            <param name="reason">The stated reason for the disconnect, readable as a string in the StatusChanged message on the remote host</param>
-        </member>
-        <member name="M:Lidgren.Network.NetConnection.Disconnect(System.String)">
-            <summary>
-            Disconnect from the remote peer
-            </summary>
-            <param name="byeMessage">the message to send with the disconnect message</param>
-        </member>
-        <member name="M:Lidgren.Network.NetConnection.GetLocalTime(System.Double)">
-            <summary>
-            Gets local time value comparable to NetTime.Now from a remote value
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetConnection.GetRemoteTime(System.Double)">
-            <summary>
-            Gets the remote time value for a local time value produced by NetTime.Now
             </summary>
         </member>
         <member name="P:Lidgren.Network.NetConnection.Tag">
@@ -1294,10 +976,62 @@
             Gets the local hail message that was sent as part of the handshake
             </summary>
         </member>
+        <member name="M:Lidgren.Network.NetConnection.MutateEndPoint(System.Net.IPEndPoint)">
+            <summary>
+            Change the internal endpoint to this new one. Used when, during handshake, a switch in port is detected (due to NAT)
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetConnection.SendMessage(Lidgren.Network.NetOutgoingMessage,Lidgren.Network.NetDeliveryMethod,System.Int32)">
+            <summary>
+            Send a message to this remote connection
+            </summary>
+            <param name="msg">The message to send</param>
+            <param name="method">How to deliver the message</param>
+            <param name="sequenceChannel">Sequence channel within the delivery method</param>
+        </member>
+        <member name="M:Lidgren.Network.NetConnection.GetSendQueueInfo(Lidgren.Network.NetDeliveryMethod,System.Int32,System.Int32@,System.Int32@)">
+            <summary>
+            Zero windowSize indicates that the channel is not yet instantiated (used)
+            Negative freeWindowSlots means this amount of messages are currently queued but delayed due to closed window
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetConnection.ToString">
+            <summary>
+            Returns a string that represents this object
+            </summary>
+        </member>
         <member name="P:Lidgren.Network.NetConnection.RemoteHailMessage">
             <summary>
             The message that the remote part specified via Connect() or Approve() - can be null.
             </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetConnection.Approve">
+            <summary>
+            Approves this connection; sending a connection response to the remote host
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetConnection.Approve(Lidgren.Network.NetOutgoingMessage)">
+            <summary>
+            Approves this connection; sending a connection response to the remote host
+            </summary>
+            <param name="localHail">The local hail message that will be set as RemoteHailMessage on the remote host</param>
+        </member>
+        <member name="M:Lidgren.Network.NetConnection.Deny">
+            <summary>
+            Denies this connection; disconnecting it
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetConnection.Deny(System.String)">
+            <summary>
+            Denies this connection; disconnecting it
+            </summary>
+            <param name="reason">The stated reason for the disconnect, readable as a string in the StatusChanged message on the remote host</param>
+        </member>
+        <member name="M:Lidgren.Network.NetConnection.Disconnect(System.String)">
+            <summary>
+            Disconnect from the remote peer
+            </summary>
+            <param name="byeMessage">the message to send with the disconnect message</param>
         </member>
         <member name="P:Lidgren.Network.NetConnection.AverageRoundtripTime">
             <summary>
@@ -1309,6 +1043,16 @@
             Time offset between this peer and the remote peer
             </summary>
         </member>
+        <member name="M:Lidgren.Network.NetConnection.GetLocalTime(System.Double)">
+            <summary>
+            Gets local time value comparable to NetTime.Now from a remote value
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetConnection.GetRemoteTime(System.Double)">
+            <summary>
+            Gets the remote time value for a local time value produced by NetTime.Now
+            </summary>
+        </member>
         <member name="P:Lidgren.Network.NetConnection.CurrentMTU">
             <summary>
             Gets the current MTU in bytes. If PeerConfiguration.AutoExpandMTU is false, this will be PeerConfiguration.MaximumTransmissionUnit.
@@ -1317,11 +1061,6 @@
         <member name="T:Lidgren.Network.NetConnectionStatistics">
             <summary>
             Statistics for a NetConnection instance
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetConnectionStatistics.ToString">
-            <summary>
-            Returns a string that represents this object
             </summary>
         </member>
         <member name="P:Lidgren.Network.NetConnectionStatistics.SentPackets">
@@ -1347,6 +1086,11 @@
         <member name="P:Lidgren.Network.NetConnectionStatistics.ResentMessages">
             <summary>
             Gets the number of resent reliable messages for this connection
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetConnectionStatistics.ToString">
+            <summary>
+            Returns a string that represents this object
             </summary>
         </member>
         <member name="T:Lidgren.Network.NetConnectionStatus">
@@ -1479,24 +1223,6 @@
             Incoming message either sent from a remote peer or generated within the library
             </summary>
         </member>
-        <member name="M:Lidgren.Network.NetIncomingMessage.Decrypt(Lidgren.Network.NetEncryption)">
-            <summary>
-            Decrypt a message
-            </summary>
-            <param name="encryption">The encryption algorithm used to encrypt the message</param>
-            <returns>true on success</returns>
-        </member>
-        <member name="M:Lidgren.Network.NetIncomingMessage.ReadTime(System.Boolean)">
-            <summary>
-            Reads a value, in local time comparable to NetTime.Now, written using WriteTime()
-            Must have a connected sender
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetIncomingMessage.ToString">
-            <summary>
-            Returns a string that represents this object
-            </summary>
-        </member>
         <member name="P:Lidgren.Network.NetIncomingMessage.MessageType">
             <summary>
             Gets the type of this incoming message
@@ -1525,6 +1251,24 @@
         <member name="P:Lidgren.Network.NetIncomingMessage.ReceiveTime">
             <summary>
             What local time the message was received from the network
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetIncomingMessage.Decrypt(Lidgren.Network.NetEncryption)">
+            <summary>
+            Decrypt a message
+            </summary>
+            <param name="encryption">The encryption algorithm used to encrypt the message</param>
+            <returns>true on success</returns>
+        </member>
+        <member name="M:Lidgren.Network.NetIncomingMessage.ReadTime(System.Boolean)">
+            <summary>
+            Reads a value, in local time comparable to NetTime.Now, written using WriteTime()
+            Must have a connected sender
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetIncomingMessage.ToString">
+            <summary>
+            Returns a string that represents this object
             </summary>
         </member>
         <member name="T:Lidgren.Network.NetIncomingMessageType">
@@ -1602,6 +1346,262 @@
             A roundtrip was measured and NetConnection.AverageRoundtripTime was updated
             </summary>
         </member>
+        <member name="T:Lidgren.Network.NetPeer">
+            <summary>
+            Represents a local peer capable of holding zero, one or more connections to remote peers
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.Introduce(System.Net.IPEndPoint,System.Net.IPEndPoint,System.Net.IPEndPoint,System.Net.IPEndPoint,System.String)">
+            <summary>
+            Send NetIntroduction to hostExternal and clientExternal; introducing client to host
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.HandleNatIntroduction(System.Int32)">
+            <summary>
+            Called when host/client receives a NatIntroduction message from a master server
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.HandleNatPunch(System.Int32,System.Net.IPEndPoint)">
+            <summary>
+            Called when receiving a NatPunchMessage from a remote endpoint
+            </summary>
+        </member>
+        <member name="P:Lidgren.Network.NetPeer.Status">
+            <summary>
+            Gets the NetPeerStatus of the NetPeer
+            </summary>
+        </member>
+        <member name="P:Lidgren.Network.NetPeer.MessageReceivedEvent">
+            <summary>
+            Signalling event which can be waited on to determine when a message is queued for reading.
+            Note that there is no guarantee that after the event is signaled the blocked thread will 
+            find the message in the queue. Other user created threads could be preempted and dequeue 
+            the message before the waiting thread wakes up.
+            </summary>
+        </member>
+        <member name="P:Lidgren.Network.NetPeer.UniqueIdentifier">
+            <summary>
+            Gets a unique identifier for this NetPeer based on Mac address and ip/port. Note! Not available until Start() has been called!
+            </summary>
+        </member>
+        <member name="P:Lidgren.Network.NetPeer.Port">
+            <summary>
+            Gets the port number this NetPeer is listening and sending on, if Start() has been called
+            </summary>
+        </member>
+        <member name="P:Lidgren.Network.NetPeer.UPnP">
+            <summary>
+            Returns an UPnP object if enabled in the NetPeerConfiguration
+            </summary>
+        </member>
+        <member name="P:Lidgren.Network.NetPeer.Tag">
+            <summary>
+            Gets or sets the application defined object containing data about the peer
+            </summary>
+        </member>
+        <member name="P:Lidgren.Network.NetPeer.Connections">
+            <summary>
+            Gets a copy of the list of connections
+            </summary>
+        </member>
+        <member name="P:Lidgren.Network.NetPeer.ConnectionsCount">
+            <summary>
+            Gets the number of active connections
+            </summary>
+        </member>
+        <member name="P:Lidgren.Network.NetPeer.Statistics">
+            <summary>
+            Statistics on this NetPeer since it was initialized
+            </summary>
+        </member>
+        <member name="P:Lidgren.Network.NetPeer.Configuration">
+            <summary>
+            Gets the configuration used to instanciate this NetPeer
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.#ctor(Lidgren.Network.NetPeerConfiguration)">
+            <summary>
+            NetPeer constructor
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.Start">
+            <summary>
+            Binds to socket and spawns the networking thread
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.GetConnection(System.Net.IPEndPoint)">
+            <summary>
+            Get the connection, if any, for a certain remote endpoint
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.WaitMessage(System.Int32)">
+            <summary>
+            Read a pending message from any connection, blocking up to maxMillis if needed
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.ReadMessage">
+            <summary>
+            Read a pending message from any connection, if any
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.ReadMessages(System.Collections.Generic.IList{Lidgren.Network.NetIncomingMessage})">
+            <summary>
+            Read a pending message from any connection, if any
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.Connect(System.String,System.Int32)">
+            <summary>
+            Create a connection to a remote endpoint
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.Connect(System.String,System.Int32,Lidgren.Network.NetOutgoingMessage)">
+            <summary>
+            Create a connection to a remote endpoint
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.Connect(System.Net.IPEndPoint)">
+            <summary>
+            Create a connection to a remote endpoint
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.Connect(System.Net.IPEndPoint,Lidgren.Network.NetOutgoingMessage)">
+            <summary>
+            Create a connection to a remote endpoint
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.RawSend(System.Byte[],System.Int32,System.Int32,System.Net.IPEndPoint)">
+            <summary>
+            Send raw bytes; only used for debugging
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.ThrowOrLog(System.String)">
+            <summary>
+            In DEBUG, throws an exception, in RELEASE logs an error message
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.Shutdown(System.String)">
+            <summary>
+            Disconnects all active connections and closes the socket
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.DiscoverLocalPeers(System.Int32)">
+            <summary>
+            Emit a discovery signal to all hosts on your subnet
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.DiscoverKnownPeer(System.String,System.Int32)">
+            <summary>
+            Emit a discovery signal to a single known host
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.DiscoverKnownPeer(System.Net.IPEndPoint)">
+            <summary>
+            Emit a discovery signal to a single known host
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.SendDiscoveryResponse(Lidgren.Network.NetOutgoingMessage,System.Net.IPEndPoint)">
+            <summary>
+            Send a discovery response message
+            </summary>
+        </member>
+        <member name="P:Lidgren.Network.NetPeer.Socket">
+            <summary>
+            Gets the socket, if Start() has been called
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.RegisterReceivedCallback(System.Threading.SendOrPostCallback,System.Threading.SynchronizationContext)">
+            <summary>
+            Call this to register a callback for when a new message arrives
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.UnregisterReceivedCallback(System.Threading.SendOrPostCallback)">
+            <summary>
+            Call this to unregister a callback, but remember to do it in the same synchronization context!
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.FlushSendQueue">
+            <summary>
+            If NetPeerConfiguration.AutoFlushSendQueue() is false; you need to call this to send all messages queued using SendMessage()
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.CreateMessage">
+            <summary>
+            Creates a new message for sending
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.CreateMessage(System.String)">
+            <summary>
+            Creates a new message for sending and writes the provided string to it
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.CreateMessage(System.Int32)">
+            <summary>
+            Creates a new message for sending
+            </summary>
+            <param name="initialCapacity">initial capacity in bytes</param>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.Recycle(Lidgren.Network.NetIncomingMessage)">
+            <summary>
+            Recycles a NetIncomingMessage instance for reuse; taking pressure off the garbage collector
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.Recycle(System.Collections.Generic.IEnumerable{Lidgren.Network.NetIncomingMessage})">
+            <summary>
+            Recycles a list of NetIncomingMessage instances for reuse; taking pressure off the garbage collector
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.CreateIncomingMessage(Lidgren.Network.NetIncomingMessageType,System.String)">
+            <summary>
+            Creates an incoming message with the required capacity for releasing to the application
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.SendMessage(Lidgren.Network.NetOutgoingMessage,Lidgren.Network.NetConnection,Lidgren.Network.NetDeliveryMethod)">
+            <summary>
+            Send a message to a specific connection
+            </summary>
+            <param name="msg">The message to send</param>
+            <param name="recipient">The recipient connection</param>
+            <param name="method">How to deliver the message</param>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.SendMessage(Lidgren.Network.NetOutgoingMessage,Lidgren.Network.NetConnection,Lidgren.Network.NetDeliveryMethod,System.Int32)">
+            <summary>
+            Send a message to a specific connection
+            </summary>
+            <param name="msg">The message to send</param>
+            <param name="recipient">The recipient connection</param>
+            <param name="method">How to deliver the message</param>
+            <param name="sequenceChannel">Sequence channel within the delivery method</param>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.SendMessage(Lidgren.Network.NetOutgoingMessage,System.Collections.Generic.List{Lidgren.Network.NetConnection},Lidgren.Network.NetDeliveryMethod,System.Int32)">
+            <summary>
+            Send a message to a list of connections
+            </summary>
+            <param name="msg">The message to send</param>
+            <param name="recipients">The list of recipients to send to</param>
+            <param name="method">How to deliver the message</param>
+            <param name="sequenceChannel">Sequence channel within the delivery method</param>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.SendUnconnectedMessage(Lidgren.Network.NetOutgoingMessage,System.String,System.Int32)">
+            <summary>
+            Send a message to an unconnected host
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.SendUnconnectedMessage(Lidgren.Network.NetOutgoingMessage,System.Net.IPEndPoint)">
+            <summary>
+            Send a message to an unconnected host
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.SendUnconnectedMessage(Lidgren.Network.NetOutgoingMessage,System.Collections.Generic.IList{System.Net.IPEndPoint})">
+            <summary>
+            Send a message to an unconnected host
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeer.SendUnconnectedToSelf(Lidgren.Network.NetOutgoingMessage)">
+            <summary>
+            Send a message to this exact same netpeer (loopback)
+            </summary>
+        </member>
         <member name="T:Lidgren.Network.NetOutgoingMessage">
             <summary>
             Outgoing message used to send data to remote peer(s)
@@ -1632,6 +1632,11 @@
             NetPeerConfiguration constructor
             </summary>
         </member>
+        <member name="P:Lidgren.Network.NetPeerConfiguration.AppIdentifier">
+            <summary>
+            Gets the identifier of this application; the library can only connect to matching app identifier peers
+            </summary>
+        </member>
         <member name="M:Lidgren.Network.NetPeerConfiguration.EnableMessageType(Lidgren.Network.NetIncomingMessageType)">
             <summary>
             Enables receiving of the specified type of message
@@ -1650,16 +1655,6 @@
         <member name="M:Lidgren.Network.NetPeerConfiguration.IsMessageTypeEnabled(Lidgren.Network.NetIncomingMessageType)">
             <summary>
             Gets if receiving of the specified type of message is enabled
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeerConfiguration.Clone">
-            <summary>
-            Creates a memberwise shallow clone of this configuration
-            </summary>
-        </member>
-        <member name="P:Lidgren.Network.NetPeerConfiguration.AppIdentifier">
-            <summary>
-            Gets the identifier of this application; the library can only connect to matching app identifier peers
             </summary>
         </member>
         <member name="P:Lidgren.Network.NetPeerConfiguration.UnreliableSizeBehaviour">
@@ -1767,6 +1762,36 @@
             Gets or sets the number of failed expand mtu attempts to perform before setting final MTU
             </summary>
         </member>
+        <member name="P:Lidgren.Network.NetPeerConfiguration.SimulatedLoss">
+            <summary>
+            Gets or sets the simulated amount of sent packets lost from 0.0f to 1.0f
+            </summary>
+        </member>
+        <member name="P:Lidgren.Network.NetPeerConfiguration.SimulatedMinimumLatency">
+            <summary>
+            Gets or sets the minimum simulated amount of one way latency for sent packets in seconds
+            </summary>
+        </member>
+        <member name="P:Lidgren.Network.NetPeerConfiguration.SimulatedRandomLatency">
+            <summary>
+            Gets or sets the simulated added random amount of one way latency for sent packets in seconds
+            </summary>
+        </member>
+        <member name="P:Lidgren.Network.NetPeerConfiguration.SimulatedAverageLatency">
+            <summary>
+            Gets the average simulated one way latency in seconds
+            </summary>
+        </member>
+        <member name="P:Lidgren.Network.NetPeerConfiguration.SimulatedDuplicatesChance">
+            <summary>
+            Gets or sets the simulated amount of duplicated packets from 0.0f to 1.0f
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetPeerConfiguration.Clone">
+            <summary>
+            Creates a memberwise shallow clone of this configuration
+            </summary>
+        </member>
         <member name="T:Lidgren.Network.NetUnreliableSizeBehaviour">
             <summary>
             Behaviour of unreliable sends above MTU
@@ -1790,11 +1815,6 @@
         <member name="T:Lidgren.Network.NetPeerStatistics">
             <summary>
             Statistics for a NetPeer instance
-            </summary>
-        </member>
-        <member name="M:Lidgren.Network.NetPeerStatistics.ToString">
-            <summary>
-            Returns a string that represents this object
             </summary>
         </member>
         <member name="P:Lidgren.Network.NetPeerStatistics.SentPackets">
@@ -1837,6 +1857,11 @@
             Gets the number of bytes in the recycled pool
             </summary>
         </member>
+        <member name="M:Lidgren.Network.NetPeerStatistics.ToString">
+            <summary>
+            Returns a string that represents this object
+            </summary>
+        </member>
         <member name="T:Lidgren.Network.NetPeerStatus">
             <summary>
             Status for a NetPeer instance
@@ -1865,6 +1890,16 @@
         <member name="T:Lidgren.Network.NetQueue`1">
             <summary>
             Thread safe (blocking) expanding queue with TryDequeue() and EnqueueFirst()
+            </summary>
+        </member>
+        <member name="P:Lidgren.Network.NetQueue`1.Count">
+            <summary>
+            Gets the number of items in the queue
+            </summary>
+        </member>
+        <member name="P:Lidgren.Network.NetQueue`1.Capacity">
+            <summary>
+            Gets the current capacity for the queue
             </summary>
         </member>
         <member name="M:Lidgren.Network.NetQueue`1.#ctor(System.Int32)">
@@ -1915,16 +1950,6 @@
         <member name="M:Lidgren.Network.NetQueue`1.Clear">
             <summary>
             Removes all objects from the queue
-            </summary>
-        </member>
-        <member name="P:Lidgren.Network.NetQueue`1.Count">
-            <summary>
-            Gets the number of items in the queue
-            </summary>
-        </member>
-        <member name="P:Lidgren.Network.NetQueue`1.Capacity">
-            <summary>
-            Gets the current capacity for the queue
             </summary>
         </member>
         <member name="T:Lidgren.Network.NetRandom">
@@ -2283,14 +2308,14 @@
             Time service
             </summary>
         </member>
-        <member name="M:Lidgren.Network.NetTime.ToReadable(System.Double)">
-            <summary>
-            Given seconds it will output a human friendly readable string (milliseconds if less than 60 seconds)
-            </summary>
-        </member>
         <member name="P:Lidgren.Network.NetTime.Now">
             <summary>
             Get number of seconds since the application started
+            </summary>
+        </member>
+        <member name="M:Lidgren.Network.NetTime.ToReadable(System.Double)">
+            <summary>
+            Given seconds it will output a human friendly readable string (milliseconds if less than 60 seconds)
             </summary>
         </member>
         <member name="T:Lidgren.Network.NetUnreliableSenderChannel">
@@ -2323,6 +2348,11 @@
             UPnP support class
             </summary>
         </member>
+        <member name="P:Lidgren.Network.NetUPnP.Status">
+            <summary>
+            Status of the UPnP capabilities of this NetPeer
+            </summary>
+        </member>
         <member name="M:Lidgren.Network.NetUPnP.#ctor(Lidgren.Network.NetPeer)">
             <summary>
             NetUPnP constructor
@@ -2343,14 +2373,19 @@
             Retrieve the extern ip using UPnP
             </summary>
         </member>
-        <member name="P:Lidgren.Network.NetUPnP.Status">
-            <summary>
-            Status of the UPnP capabilities of this NetPeer
-            </summary>
-        </member>
         <member name="T:Lidgren.Network.NetUtility">
             <summary>
             Utility methods
+            </summary>
+        </member>
+        <member name="T:Lidgren.Network.NetUtility.ResolveEndPointCallback">
+            <summary>
+            Resolve endpoint callback
+            </summary>
+        </member>
+        <member name="T:Lidgren.Network.NetUtility.ResolveAddressCallback">
+            <summary>
+            Resolve address callback
             </summary>
         </member>
         <member name="M:Lidgren.Network.NetUtility.ResolveAsync(System.String,System.Int32,Lidgren.Network.NetUtility.ResolveEndPointCallback)">
@@ -2456,16 +2491,6 @@
         <member name="M:Lidgren.Network.NetUtility.CreateSHA1Hash(System.Byte[],System.Int32,System.Int32)">
             <summary>
             Create a SHA1 digest from a byte buffer
-            </summary>
-        </member>
-        <member name="T:Lidgren.Network.NetUtility.ResolveEndPointCallback">
-            <summary>
-            Resolve endpoint callback
-            </summary>
-        </member>
-        <member name="T:Lidgren.Network.NetUtility.ResolveAddressCallback">
-            <summary>
-            Resolve address callback
             </summary>
         </member>
     </members>

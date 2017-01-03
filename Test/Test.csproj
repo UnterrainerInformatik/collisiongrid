@@ -58,9 +58,9 @@
       <HintPath>..\packages\MonoGame.Extended.0.5.149\lib\MonoGame.Extended.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MonoGame.Framework, Version=3.6.0.1060, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MonoGame.Framework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>_EXTERNAL_LIBRARIES\MonoGame\MonoGame.Framework.dll</HintPath>
+      <HintPath>..\..\Throbax - MonoGame - 2014\ThrobaxTD\ThrobaxTD\_EXTERNAL_LIBRARIES\MonoGame\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

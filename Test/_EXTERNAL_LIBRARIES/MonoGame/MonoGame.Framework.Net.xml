@@ -4,12 +4,6 @@
         <name>MonoGame.Framework.Net</name>
     </assembly>
     <members>
-        <member name="M:Microsoft.Xna.Framework.Net.MonoGamerPeer.GetServerList(Lidgren.Network.NetPeer)">
-            <summary>
-            Contacts the Master Server on the net and gets a list of available host games
-            </summary>
-            <param name="netPeer"></param>
-        </member>
         <member name="P:Microsoft.Xna.Framework.Net.MonoGamerPeer.SimulatedLatency">
             <summary>
             Used to Simulate the delay between computers
@@ -19,6 +13,12 @@
             <summary>
             Used to simulate the number of packets you might expect to loose.
             </summary>
+        </member>
+        <member name="M:Microsoft.Xna.Framework.Net.MonoGamerPeer.GetServerList(Lidgren.Network.NetPeer)">
+            <summary>
+            Contacts the Master Server on the net and gets a list of available host games
+            </summary>
+            <param name="netPeer"></param>
         </member>
     </members>
 </doc>
