@@ -11,25 +11,25 @@ In order to get help with basic GIT commands you may try [the GIT cheat-sheet][c
 This repository located on our  [homepage][homepage] is private since this is the master- and release-branch. You may clone it, but it will be read-only.  
 If you want to contribute to our repository (push, open pull requests), please use the copy on github located here: [the public github repository][github]  
 
-# CollisionGrid  
+# ![Icon](https://github.com/UnterrainerInformatik/collisiongrid/raw/master/icon.png)CollisionGrid
 
 This class implements a collision-grid.  
 When doing game development you've probably come across a point when you'd liked to do some collision-checks and that's usually the time when you've realize that just checking all sprites against each other doesn't cut it.  
 The problem with that brute-force-approach is, that the number of checks grow very fast (N² for N sprites) when the number of your sprites increase.  
-  
+
 So you somehow have to narrow down your collision-candidates.  
 This piece of software does that for you. It does not do the collision checks themself. It just tells you if a sprite may be near enough to a second one to maybe collide with it, which allows you to do a collision test for those two, or three, or five sprites instead of the whole bunch.  
 ## What It Really Does...
 ...is a simple trade-off.  
 You may query it about the sprites around your coordinate or rectangle, but your sprites have to register with it and update their position/AABB on every update.
 But all in all this is a lot faster than a simple brute-force check.  
-  
+
 ## Getting Started
 The first thing is: You have to set-up a grid. Usually you'd take your game-coordinate-system's bounds.
 Then you have to tell the grid how many cells it has by setting the number of cells on the X and Y axis.
-  
+
 Then you may add your sprites or other objects to the grid by calling `Add(object, Point/Vector2/Rectangle/Rect)` or `Move(object, Point/Vector2/Rectangle/Rect)`. Move removes the item first if it was present on the grid.  
-  
+
 ### Parameters
     The first parameter is your item. The grid is generic and there are no constraints for that.  
     The second parameter is always one of the following:
@@ -47,21 +47,21 @@ Then you may add your sprites or other objects to the grid by calling `Add(objec
 #### Rect  
     This is a special parameter in our utility-package. It's essentially a Rectangle, but with all float parameters.  
     By specifying this you give the grid a rectangle in the game-coordinate-system.  
-  
+
 All rectangles this grid works with are axis-aligned.  
 
 You're free to remove them at any time by using one of the remove-methods `Remove(Point/Vector2/Rectangle/Rect)`.
-  
+
 The method `Get(Point/Vector2/Rectangle/Rect)` returns an array of your items with all of them that the grid has encountered in the area you've specified when calling `Get`. If it doesn't find any it returns an empty array.
-  
+
 If you add your sprites by their position, then this is what the grid will basically do:  
 ![Position Test][testposition]
-  
+
 If you add your sprites by their AABBs, then this is what the grid will basically do:  
 ![Rectangle Test][testrectangle]
 
 #### Example  
-    
+
 Set up the collision-grid:
 ```csharp
 public CollisionGrid<Sprite> Grid;
@@ -92,7 +92,7 @@ To achieve the output in the second one, just change the Move-line to the follow
         Grid.Move(s, s.getAABB());
 ```
 Whereas of course your sprite has to return the axis-aligned-bounding-box as a Rect.
-  
+
 Please don't forget to clean up afterwards. There are a few data-structures the grid has to dispose of:  
 ```csharp
 protected override void UnloadContent()
@@ -101,23 +101,23 @@ protected override void UnloadContent()
 	Grid.Dispose();
 }
 ```
-  
+
 ## So What's A QuadTree Then?
 Maybe you've heard of such a data-structure that does essentially exactly the same things as this grid with one major difference:  
-  
+
 The QuadTree divides the space all by itself, dynamically whenever you add new items.  
 It doesn't need a fixed uniform grid, but divides space unevenly and only when another partition is needed.  
 And that's good and bad at the same time.
 The good thing is that it can cope with unevenly distributed items very well.
 The bad thing is that it costs a lot more time (the updating of this data-structure); At least when compared to this grid here.  
 [Here's a very good implementation of a QuadTree on GitHub with an excellent explanation what it exactly does.][quadtree]  
-  
+
 The good news about the QuadTree is that it's exactly what you're looking for if you are thinking...
 > Oh! Nice thing this grid. But the space I have to check is REALLY BIG and my sprites are very unevenly distributed. Most of the time they are clustered with much space in between those clusters. So my cells become way too big to segment those clusters in a helpful way.
 
 ...when reading the explanation of the CollisionGrid.
-  
-  
+
+
 [homepage]: http://www.unterrainer.info
 [coding]: http://www.unterrainer.info/Home/Coding
 [github]: https://github.com/UnterrainerInformatik/collisiongrid

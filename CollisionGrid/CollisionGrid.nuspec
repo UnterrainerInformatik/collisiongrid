@@ -7,6 +7,7 @@
     <authors>Unterrainer Informatik OG Team</authors>
     <owners>Public Domain</owners>
     <licenseUrl>http://unlicense.org</licenseUrl>
+	<iconUrl>https://github.com/UnterrainerInformatik/collisiongrid/raw/master/icon.png</iconUrl>
     <projectUrl>https://github.com/UnterrainerInformatik/collisiongrid</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Narrow down collision candidates in a 2D environment by using a fixed-size grid.</description>
