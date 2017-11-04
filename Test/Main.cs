@@ -25,8 +25,6 @@
 // For more information, please refer to <http://unlicense.org>
 // ***************************************************************************
 
-using System;
-using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -50,7 +48,6 @@ namespace Test
             GraphicsDeviceManager.PreparingDeviceSettings += PrepareDeviceSettings;
 
             Window.AllowUserResizing = true;
-            Window.Position = Point.Zero;
             IsMouseVisible = true;
         }
 

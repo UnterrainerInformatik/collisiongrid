@@ -25,6 +25,7 @@
 // For more information, please refer to <http://unlicense.org>
 // ***************************************************************************
 
+using MonoGame.Extended;
 using MonoGame.Extended.Shapes;
 
 namespace CollisionGrid

@@ -27,7 +27,7 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Extended.Shapes;
+using MonoGame.Extended;
 
 namespace Test
 {
@@ -56,7 +56,7 @@ namespace Test
         {
             base.Update(gameTime);
 
-            Position = Position + Trajectory*Velocity;
+            Position = Position + Trajectory * Velocity;
 
             if (Position.X <= 0)
             {
@@ -82,7 +82,7 @@ namespace Test
 
         public RectangleF GetAabb()
         {
-            return new RectangleF(Position.X - Width/2f, Position.Y - Height/2f, Width, Height);
+            return new RectangleF(Position.X - Width / 2f, Position.Y - Height / 2f, Width, Height);
         }
 
         public override void Draw(GameTime gameTime)

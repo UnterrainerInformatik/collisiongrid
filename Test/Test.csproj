@@ -54,13 +54,17 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MonoGame.Extended, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonoGame.Extended.0.5.149\lib\MonoGame.Extended.dll</HintPath>
+    <Reference Include="MonoGame.Extended, Version=0.6.602.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MonoGame.Extended.0.6.602\lib\portable-net45+win8+wpa81\MonoGame.Extended.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MonoGame.Framework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Throbax - MonoGame - 2014\ThrobaxTD\ThrobaxTD\_EXTERNAL_LIBRARIES\MonoGame\MonoGame.Framework.dll</HintPath>
+    <Reference Include="MonoGame.Framework, Version=3.6.0.1625, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MonoGame.Framework.DesktopGL.3.6.0.1625\lib\net40\MonoGame.Framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -86,34 +90,55 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\Program Files %28x86%29\MonoGame\v3.0\Assemblies\DesktopGL\libopenal.1.dylib">
+      <Link>libopenal.1.dylib</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\Program Files %28x86%29\MonoGame\v3.0\Assemblies\DesktopGL\libSDL2-2.0.0.dylib">
+      <Link>libSDL2-2.0.0.dylib</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\Program Files %28x86%29\MonoGame\v3.0\Assemblies\DesktopGL\MonoGame.Framework.dll.config">
+      <Link>MonoGame.Framework.dll.config</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\program files %28x86%29\monogame\v3.0\assemblies\desktopgl\x64\libopenal.so.1">
+      <Link>x64\libopenal.so.1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\program files %28x86%29\monogame\v3.0\assemblies\desktopgl\x64\libSDL2-2.0.so.0">
+      <Link>x64\libSDL2-2.0.so.0</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\program files %28x86%29\monogame\v3.0\assemblies\desktopgl\x86\libopenal.so.1">
+      <Link>x86\libopenal.so.1</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\program files %28x86%29\monogame\v3.0\assemblies\desktopgl\x86\libSDL2-2.0.so.0">
+      <Link>x86\libSDL2-2.0.so.0</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="app.config" />
     <None Include="app.manifest" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\external\OpenTK.dll" />
-    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\Lidgren.Network.dll" />
-    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\Lidgren.Network.xml" />
-    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\MonoGame.Framework.dll" />
-    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\MonoGame.Framework.Net.dll" />
-    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\MonoGame.Framework.Net.xml" />
-    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.Direct2D1.dll" />
-    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.Direct2D1.xml" />
-    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.Direct3D11.dll" />
-    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.Direct3D11.xml" />
-    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.Direct3D9.dll" />
-    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.Direct3D9.xml" />
-    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.dll" />
-    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.DXGI.dll" />
-    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.DXGI.xml" />
-    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.MediaFoundation.dll" />
-    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.MediaFoundation.xml" />
-    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.RawInput.dll" />
-    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.RawInput.xml" />
-    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.XAudio2.dll" />
-    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.XAudio2.xml" />
-    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.XInput.dll" />
-    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.XInput.xml" />
-    <Content Include="_EXTERNAL_LIBRARIES\MonoGame\SharpDX.xml" />
+    <None Include="..\..\..\program files %28x86%29\monogame\v3.0\assemblies\desktopgl\x64\SDL2.dll">
+      <Link>x64\SDL2.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\program files %28x86%29\monogame\v3.0\assemblies\desktopgl\x64\soft_oal.dll">
+      <Link>x64\soft_oal.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\program files %28x86%29\monogame\v3.0\assemblies\desktopgl\x86\SDL2.dll">
+      <Link>x86\SDL2.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\program files %28x86%29\monogame\v3.0\assemblies\desktopgl\x86\soft_oal.dll">
+      <Link>x86\soft_oal.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

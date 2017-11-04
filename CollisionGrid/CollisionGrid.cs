@@ -28,6 +28,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 using MonoGame.Extended.Shapes;
 
 namespace CollisionGrid
@@ -132,8 +133,8 @@ namespace CollisionGrid
 
         private Rectangle Rectangle(RectangleF rect)
         {
-            Point tl = Cell(rect.Location);
-            Point br = Cell(rect.Location + rect.Size);
+            Point tl = Cell(rect.Position);
+            Point br = Cell(rect.Position + rect.Size);
             Point s = br - tl + new Point(1, 1);
             return new Rectangle(tl, s);
         }
