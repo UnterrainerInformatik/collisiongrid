@@ -19,7 +19,14 @@ The problem with that brute-force-approach is, that the number of checks grow ve
 
 So you somehow have to narrow down your collision-candidates.  
 This piece of software does that for you. It does not do the collision checks themself. It just tells you if a sprite may be near enough to a second one to maybe collide with it, which allows you to do a collision test for those two, or three, or five sprites instead of the whole bunch.  
+
+> **If you like this repo, please don't forget to star it.**
+> **Thank you.**
+
+
+
 ## What It Really Does...
+
 ...is a simple trade-off.  
 You may query it about the sprites around your coordinate or rectangle, but your sprites have to register with it and update their position/AABB on every update.
 But all in all this is a lot faster than a simple brute-force check.  
