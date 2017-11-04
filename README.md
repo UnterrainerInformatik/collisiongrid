@@ -13,7 +13,7 @@ If you want to contribute to our repository (push, open pull requests), please u
 
 # ![Icon](https://github.com/UnterrainerInformatik/collisiongrid/raw/master/icon.png)CollisionGrid
 
-This class implements a collision-grid.  
+This class is a PCL library for MonoGame that implements a collision-grid.  
 When doing game development you've probably come across a point when you'd liked to do some collision-checks and that's usually the time when you've realize that just checking all sprites against each other doesn't cut it.  
 The problem with that brute-force-approach is, that the number of checks grow very fast (N² for N sprites) when the number of your sprites increase.  
 
