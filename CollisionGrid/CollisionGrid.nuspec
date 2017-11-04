@@ -10,12 +10,14 @@
 	<iconUrl>https://github.com/UnterrainerInformatik/collisiongrid/raw/master/icon.png</iconUrl>
     <projectUrl>https://github.com/UnterrainerInformatik/collisiongrid</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Narrow down collision candidates in a 2D environment by using a fixed-size grid.</description>
+    <description>
+		When doing game development you've all come across a point when you'd like to do some collision-checks and that's usually the time when you realize that just checking all sprites against each other just doesn't cut it.
+		The problem is that the number of checks grow very fast (N² for N sprites) when the number of your sprites grow.
+		So you somehow have to narrow down your collision-candidates. This piece of software does that for you. It does not do collision checking itself. It just tells you if a sprite is near enough to a second one to maybe collide which allows you to do a collision test for those two, or three, or five...
+		This is a PCL, so you should be able to use it in any of your MG projects.
+	</description>
     <summary>
-      When doing game development you've all come across a point when you'd like to do some collision-checks and that's usually the time when you realize that just checking all sprites against each other just doesn't cut it.
-      The problem is that the number of checks grow very fast (N² for N sprites) when the number of your sprites grow.
-
-      So you somehow have to narrow down your collision-candidates. This piece of software does that for you. It does not do collision checking itself. It just tells you if a sprite is near enough to a second one to maybe collide which allows you to do a collision test for those two, or three, or five...
+      Narrow down collision candidates in a 2D environment by using a fixed-size grid.
     </summary>
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2016</copyright>
