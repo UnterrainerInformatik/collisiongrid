@@ -1,4 +1,4 @@
-[![NuGet](https://img.shields.io/nuget/v/CollisionGrid.svg?maxAge=2592000)](https://www.nuget.org/packages/CollisionGrid/)
+[![NuGet](https://img.shields.io/nuget/v/CollisionGrid.svg?maxAge=2592000)](https://www.nuget.org/packages/CollisionGrid/) [![NuGet](https://img.shields.io/nuget/dt/CollisionGrid.svg?maxAge=2592000)](https://www.nuget.org/packages/CollisionGrid/)
  [![license](https://img.shields.io/github/license/unterrainerinformatik/collisiongrid.svg?maxAge=2592000)](http://unlicense.org)  [![Twitter Follow](https://img.shields.io/twitter/follow/throbax.svg?style=social&label=Follow&maxAge=2592000)](https://twitter.com/throbax)  
 
 # General  
