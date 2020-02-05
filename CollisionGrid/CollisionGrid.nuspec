@@ -22,6 +22,6 @@
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2016</copyright>
     <language>en-US</language>
-    <tags>collision detection candidates 2D AABB</tags>
+    <tags>broad-phase broad phase collision detection candidates 2D AABB</tags>
   </metadata>
 </package>
