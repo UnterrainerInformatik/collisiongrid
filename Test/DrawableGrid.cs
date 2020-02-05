@@ -31,7 +31,7 @@ using CollisionGrid;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
-using MonoGame.Extended.Shapes;
+using RectangleF = CollisionGrid.RectangleF;
 
 namespace Test
 {
@@ -81,7 +81,7 @@ namespace Test
             base.Update(gameTime);
             foreach (Sprite s in sprites)
             {
-                Grid.Move(s, s.GetAabb());
+                Grid.Move(s, Convert(s.GetAabb()));
             }
         }
 
@@ -111,18 +111,28 @@ namespace Test
                             }
                             c = Color.Red;
                             c.A = (byte) (255f*f);
-                            SpriteBatch.FillRectangle(cell, c);
+                            SpriteBatch.FillRectangle(Convert(cell), c);
                         }
                         else
                         {
                             c = Color.Yellow;
                             c.A = (byte) (255f*.5f);
-                            SpriteBatch.DrawRectangle(cell, c);
+                            SpriteBatch.DrawRectangle(Convert(cell), c);
                         }
                     }
                 }
                 SpriteBatch.End();
             }
+        }
+
+        public static RectangleF Convert(MonoGame.Extended.RectangleF s)
+        {
+            return new RectangleF(s.X, s.Y, s.Width, s.Height);
+        }
+
+        public static MonoGame.Extended.RectangleF Convert(RectangleF s)
+        {
+            return new MonoGame.Extended.RectangleF(s.X, s.Y, s.Width, s.Height);
         }
 
         protected override void UnloadContent()

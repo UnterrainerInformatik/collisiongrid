@@ -11,7 +11,7 @@ In order to get help with basic GIT commands you may try [the GIT cheat-sheet][c
 This repository located on our  [homepage][homepage] is private since this is the master- and release-branch. You may clone it, but it will be read-only.  
 If you want to contribute to our repository (push, open pull requests), please use the copy on github located here: [the public github repository][github]  
 
-# ![Icon](https://github.com/UnterrainerInformatik/collisiongrid/raw/master/icon.png)CollisionGrid
+# ![Icon](https://github.com/UnterrainerInformatik/collisiongrid/raw/master/CollisionGrid/icon.png)CollisionGrid
 
 This class is a PCL library for MonoGame that implements a collision-grid.  
 When doing game development you've probably come across a point when you'd liked to do some collision-checks and that's usually the time when you've realize that just checking all sprites against each other doesn't cut it.  
@@ -129,5 +129,6 @@ The good news about the QuadTree is that it's exactly what you're looking for if
 [coding]: http://www.unterrainer.info/Home/Coding
 [github]: https://github.com/UnterrainerInformatik/collisiongrid
 [quadtree]: https://github.com/ChevyRay/QuadTree
-[testrectangle]: https://github.com/UnterrainerInformatik/collisiongrid/blob/master/testrectangle.gif
-[testposition]: https://github.com/UnterrainerInformatik/collisiongrid/blob/master/testposition.gif
+[testrectangle]: https://github.com/UnterrainerInformatik/collisiongrid/blob/master/docs/testrectangle.gif
+
+[testposition]: https://github.com/UnterrainerInformatik/collisiongrid/blob/master/docs/testposition.gif

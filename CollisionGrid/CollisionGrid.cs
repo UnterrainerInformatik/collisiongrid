@@ -26,14 +26,10 @@
 // ***************************************************************************
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using Microsoft.Xna.Framework;
-using MonoGame.Extended;
-using MonoGame.Extended.Shapes;
 
 namespace CollisionGrid
 {
-    [PublicAPI]
     public partial class CollisionGrid<T>
     {
         private readonly object lockObject = new object();
